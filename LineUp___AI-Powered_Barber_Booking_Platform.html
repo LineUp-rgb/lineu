@@ -1,0 +1,3173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head><base href="https://d16ilfvy4mv02r.cloudfront.net/workspaces/GrkflLpth3HmFqVElRefgWYZK3tnY6nF/55d8125f-3db4-4291-a5eb-6304f16d5bf3/files/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LineUp — The Barber Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --bg4: #222222;
+    --gold: #d4a843;
+    --gold2: #f0c060;
+    --green: #39ff14;
+    --white: #ffffff;
+    --gray: #888888;
+    --gray2: #555555;
+    --border: #2a2a2a;
+    --red: #ff4444;
+    --blue: #4488ff;
+    --card-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    --gold-glow: 0 0 20px rgba(212,168,67,0.3);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+  /* ===== PAGES ===== */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900;
+    color: var(--gold);
+    cursor: pointer;
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+  .nav-link {
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem; font-weight: 500;
+    color: var(--gray);
+    transition: all 0.2s;
+    border: none; background: none;
+  }
+  .nav-link:hover, .nav-link.active { color: var(--white); background: var(--bg3); }
+  .nav-btn {
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    background: var(--gold);
+    color: #000;
+    font-weight: 700; font-size: 0.85rem;
+    cursor: pointer; border: none;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+  .nav-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem; color: #000;
+    cursor: pointer;
+    border: 2px solid var(--gold);
+  }
+  .mobile-nav { display: none; }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600; font-size: 0.9rem;
+    cursor: pointer; border: none;
+    transition: all 0.25s;
+    text-decoration: none;
+  }
+  .btn-gold { background: var(--gold); color: #000; }
+  .btn-gold:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,168,67,0.4); }
+  .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-green { background: var(--green); color: #000; }
+  .btn-green:hover { opacity: 0.9; transform: translateY(-2px); }
+  .btn-ghost { background: var(--bg3); color: var(--white); }
+  .btn-ghost:hover { background: var(--bg4); }
+  .btn-danger { background: var(--red); color: #fff; }
+  .btn-sm { padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 8px; }
+  .btn-lg { padding: 1rem 2rem; font-size: 1rem; border-radius: 12px; }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+  .card-hover:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: var(--gold-glow);
+    transition: all 0.3s;
+  }
+
+  /* ===== FORMS ===== */
+  .form-group { margin-bottom: 1.25rem; }
+  .form-label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--gray); margin-bottom: 0.4rem; }
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-input:focus { border-color: var(--gold); }
+  .form-input::placeholder { color: var(--gray2); }
+  select.form-input option { background: var(--bg3); }
+
+  /* ===== BADGES ===== */
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem; font-weight: 600;
+  }
+  .badge-gold { background: rgba(212,168,67,0.15); color: var(--gold); border: 1px solid rgba(212,168,67,0.3); }
+  .badge-green { background: rgba(57,255,20,0.1); color: var(--green); border: 1px solid rgba(57,255,20,0.2); }
+  .badge-blue { background: rgba(68,136,255,0.1); color: var(--blue); }
+  .badge-red { background: rgba(255,68,68,0.1); color: var(--red); }
+  .badge-gray { background: var(--bg3); color: var(--gray); }
+
+  /* ===== AVATAR ===== */
+  .avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--bg3);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: var(--gold);
+  }
+
+  /* ===== STARS ===== */
+  .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 2px; }
+
+  /* ===== SECTION ===== */
+  .section { padding: 5rem 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(212,168,67,0.1);
+    border: 1px solid rgba(212,168,67,0.3);
+    color: var(--gold);
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .section-title .highlight { color: var(--gold); }
+  .section-sub { color: var(--gray); font-size: 1.05rem; line-height: 1.7; max-width: 540px; }
+
+  /* ===== GRID ===== */
+  .grid { display: grid; gap: 1.5rem; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes glow {
+    0%,100% { box-shadow: 0 0 20px rgba(212,168,67,0.2); }
+    50% { box-shadow: 0 0 40px rgba(212,168,67,0.5); }
+  }
+  .animate-fade-up { animation: fadeInUp 0.6s ease forwards; }
+  .animate-fade { animation: fadeIn 0.4s ease forwards; }
+  .animate-float { animation: float 3s ease-in-out infinite; }
+  .animate-glow { animation: glow 2s ease-in-out infinite; }
+
+  /* ===== TOAST ===== */
+  #toast-container {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .toast {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    min-width: 280px;
+    animation: fadeInUp 0.3s ease;
+    box-shadow: var(--card-shadow);
+  }
+  .toast-icon { font-size: 1.1rem; }
+  .toast-success .toast-icon { color: var(--green); }
+  .toast-info .toast-icon { color: var(--blue); }
+  .toast-warning .toast-icon { color: var(--gold); }
+  .toast-error .toast-icon { color: var(--red); }
+  .toast-msg { font-size: 0.875rem; flex: 1; }
+  .toast-title { font-weight: 600; }
+  .toast-sub { color: var(--gray); font-size: 0.8rem; }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 500px; width: 90%;
+    max-height: 90vh; overflow-y: auto;
+    animation: fadeInUp 0.3s ease;
+  }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+  .modal-title { font-size: 1.3rem; font-weight: 700; }
+  .modal-close { background: var(--bg3); border: none; color: var(--gray); cursor: pointer; width: 32px; height: 32px; border-radius: 8px; font-size: 1rem; transition: 0.2s; }
+  .modal-close:hover { color: var(--white); }
+
+  /* ===== TABS ===== */
+  .tabs { display: flex; gap: 0.25rem; background: var(--bg3); border-radius: 12px; padding: 0.3rem; margin-bottom: 1.5rem; }
+  .tab {
+    flex: 1; padding: 0.6rem 1rem;
+    border-radius: 8px; border: none;
+    background: none; color: var(--gray);
+    font-size: 0.85rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .tab.active { background: var(--bg); color: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+
+  /* ===== DIVIDER ===== */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+  /* ===== PROGRESS ===== */
+  .progress-bar { background: var(--bg3); border-radius: 999px; height: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2)); border-radius: 999px; transition: width 1s ease; }
+
+  /* ===== SKELETON ===== */
+  .skeleton {
+    background: linear-gradient(90deg, var(--bg3) 25%, var(--bg4) 50%, var(--bg3) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+  }
+
+  /* ======================================
+     PAGE: LANDING
+  ====================================== */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 64px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 50%, rgba(212,168,67,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(212,168,67,0.04) 0%, transparent 50%),
+      linear-gradient(180deg, #0a0a0a 0%, #0d0d0d 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(212,168,67,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,168,67,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 70%);
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(212,168,67,0.1);
+    border: 1px solid rgba(212,168,67,0.3);
+    color: var(--gold);
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title .gold { color: var(--gold); }
+  .hero-title .stroke {
+    -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+    color: transparent;
+  }
+  .hero-desc { font-size: 1.1rem; color: var(--gray); line-height: 1.7; max-width: 500px; margin-bottom: 2.5rem; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .hero-stats { display: flex; gap: 2.5rem; }
+  .hero-stat-num { font-size: 1.8rem; font-weight: 800; color: var(--white); }
+  .hero-stat-label { font-size: 0.8rem; color: var(--gray); }
+  .hero-right { position: relative; }
+  .hero-phone-mockup {
+    width: 300px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    padding: 1.5rem;
+    margin: 0 auto;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(212,168,67,0.1);
+    position: relative;
+  }
+  .phone-notch {
+    width: 80px; height: 20px;
+    background: var(--bg);
+    border-radius: 10px;
+    margin: 0 auto 1.5rem;
+  }
+  .phone-profile-header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .phone-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; color: #000; font-size: 1rem;
+  }
+  .phone-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 1rem 0; }
+  .phone-gallery-item {
+    aspect-ratio: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+  .phone-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+  }
+  .gallery-p1 { background: linear-gradient(135deg, #1a1410, #2a2010); }
+  .gallery-p2 { background: linear-gradient(135deg, #101a14, #10201a); }
+  .gallery-p3 { background: linear-gradient(135deg, #1a1010, #201a10); }
+  .gallery-p4 { background: linear-gradient(135deg, #10101a, #14101a); }
+  .phone-book-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--gold);
+    color: #000;
+    border-radius: 12px;
+    font-weight: 700; font-size: 0.9rem;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+  }
+  .phone-earnings-card {
+    background: linear-gradient(135deg, rgba(212,168,67,0.15), rgba(212,168,67,0.05));
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .floating-badge {
+    position: absolute;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.6rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; font-weight: 600;
+    white-space: nowrap;
+    box-shadow: var(--card-shadow);
+  }
+  .fb1 { top: 10%; right: -40px; }
+  .fb2 { bottom: 20%; left: -60px; }
+  .fb3 { top: 50%; right: -50px; }
+
+  /* How it works */
+  .steps { position: relative; }
+  .step-line {
+    position: absolute; left: 24px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--gold), transparent);
+  }
+  .step {
+    display: flex; gap: 1.5rem;
+    padding-left: 0; margin-bottom: 2.5rem;
+    position: relative;
+  }
+  .step-num {
+    width: 48px; height: 48px; flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1rem; color: #000;
+    position: relative; z-index: 1;
+  }
+  .step-content { padding-top: 0.5rem; }
+  .step-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .step-desc { color: var(--gray); font-size: 0.9rem; line-height: 1.6; }
+
+  /* Features grid */
+  .feature-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+  .feature-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--gold-glow); }
+  .feature-icon {
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    background: rgba(212,168,67,0.1);
+    border: 1px solid rgba(212,168,67,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+    color: var(--gold);
+  }
+  .feature-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .feature-desc { color: var(--gray); font-size: 0.875rem; line-height: 1.6; }
+
+  /* Pricing */
+  .pricing-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .pricing-card.popular {
+    border-color: var(--gold);
+    box-shadow: var(--gold-glow);
+  }
+  .popular-tag {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gold);
+    color: #000;
+    padding: 0.25rem 1rem;
+    border-radius: 999px;
+    font-size: 0.75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .pricing-name { font-size: 0.85rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+  .pricing-price { font-size: 3rem; font-weight: 800; margin-bottom: 0.25rem; }
+  .pricing-price span { font-size: 1rem; color: var(--gray); }
+  .pricing-features { list-style: none; margin: 1.5rem 0; }
+  .pricing-features li {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 0;
+    font-size: 0.875rem; color: var(--gray);
+    border-bottom: 1px solid var(--border);
+  }
+  .pricing-features li:last-child { border: none; }
+  .pricing-features li i { color: var(--gold); width: 16px; }
+
+  /* Testimonials */
+  .testimonial-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+  .testimonial-card:hover { border-color: rgba(212,168,67,0.3); }
+  .testimonial-quote { font-size: 2rem; color: var(--gold); margin-bottom: 0.5rem; }
+  .testimonial-text { font-size: 0.95rem; line-height: 1.7; color: #ccc; margin-bottom: 1.5rem; }
+  .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+  .t-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1rem;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #000;
+  }
+
+  /* CTA Banner */
+  .cta-banner {
+    background: linear-gradient(135deg, rgba(212,168,67,0.1), rgba(212,168,67,0.05));
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 24px;
+    padding: 4rem;
+    text-align: center;
+  }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    margin-bottom: 1rem;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 4rem 0 2rem;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.5rem; }
+  .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-col-title { font-weight: 700; margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); }
+  .social-icons { display: flex; gap: 0.75rem; margin-top: 1rem; }
+  .social-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gray);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .social-icon:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ======================================
+     PAGE: DISCOVER
+  ====================================== */
+  .discover-hero {
+    padding: 7rem 0 3rem;
+    background: linear-gradient(180deg, rgba(212,168,67,0.03) 0%, transparent 100%);
+    text-align: center;
+  }
+  .search-bar {
+    display: flex; gap: 0.75rem;
+    max-width: 640px; margin: 0 auto;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 0.5rem;
+  }
+  .search-bar input {
+    flex: 1;
+    background: none; border: none;
+    color: var(--white); font-size: 0.95rem;
+    outline: none; padding: 0.5rem 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+  .search-bar input::placeholder { color: var(--gray2); }
+  .filter-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin: 1.5rem 0; }
+  .chip {
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem; font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: none; color: var(--gray);
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .chip:hover, .chip.active { background: var(--gold); color: #000; border-color: var(--gold); }
+  .barber-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .barber-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--gold-glow); }
+  .barber-cover {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+  }
+  .barber-cover-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+  .barber-cover-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%);
+  }
+  .barber-card-body { padding: 1.25rem; position: relative; }
+  .barber-card-avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 3px solid var(--bg2);
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; color: #000; font-size: 1.1rem;
+    position: absolute;
+    top: -28px; left: 1.25rem;
+  }
+  .barber-card-name { font-weight: 700; font-size: 1rem; margin-top: 1.75rem; margin-bottom: 0.25rem; }
+  .barber-card-title { color: var(--gray); font-size: 0.8rem; margin-bottom: 0.75rem; }
+  .barber-card-meta { display: flex; gap: 1rem; font-size: 0.8rem; color: var(--gray); margin-bottom: 1rem; }
+  .barber-card-meta span { display: flex; align-items: center; gap: 0.3rem; }
+  .barber-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .barber-tag {
+    padding: 0.2rem 0.5rem;
+    background: var(--bg3);
+    border-radius: 4px;
+    font-size: 0.7rem; color: var(--gray);
+  }
+
+  /* ======================================
+     PAGE: BARBER PROFILE
+  ====================================== */
+  .profile-cover {
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 64px;
+  }
+  .profile-cover-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+  }
+  .profile-cover-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
+  }
+  .profile-content { padding: 0 2rem; max-width: 1200px; margin: 0 auto; }
+  .profile-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-top: -60px; margin-bottom: 2rem;
+    position: relative; z-index: 1;
+  }
+  .profile-avatar-wrap {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--bg);
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; color: #000; font-size: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .verified-badge {
+    position: absolute; bottom: 4px; right: 4px;
+    width: 28px; height: 28px;
+    background: var(--blue);
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+  }
+  .profile-name { font-size: 2rem; font-weight: 800; margin-bottom: 0.25rem; }
+  .profile-title { color: var(--gold); font-size: 0.9rem; font-weight: 600; }
+  .profile-stats { display: flex; gap: 2rem; margin: 1rem 0; }
+  .profile-stat { text-align: center; }
+  .profile-stat-num { font-size: 1.4rem; font-weight: 800; }
+  .profile-stat-label { font-size: 0.75rem; color: var(--gray); }
+  .profile-social { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .social-pill {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .sp-insta { background: rgba(225,48,108,0.15); color: #e1306c; border: 1px solid rgba(225,48,108,0.3); }
+  .sp-tiktok { background: rgba(0,0,0,0.3); color: #fff; border: 1px solid var(--border); }
+  .sp-youtube { background: rgba(255,0,0,0.15); color: #ff0000; border: 1px solid rgba(255,0,0,0.3); }
+  .sp-snap { background: rgba(255,252,0,0.15); color: #fffc00; border: 1px solid rgba(255,252,0,0.3); }
+  .services-grid { display: grid; gap: 0.75rem; }
+  .service-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: all 0.2s;
+  }
+  .service-item:hover { border-color: var(--gold); }
+  .service-name { font-weight: 600; font-size: 0.9rem; }
+  .service-duration { color: var(--gray); font-size: 0.8rem; }
+  .service-price { color: var(--gold); font-weight: 700; font-size: 1rem; }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  .portfolio-item {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: var(--bg3);
+  }
+  .portfolio-item-inner {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+    transition: transform 0.3s;
+  }
+  .portfolio-item:hover .portfolio-item-inner { transform: scale(1.05); }
+  .portfolio-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.8) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex; align-items: flex-end;
+    padding: 0.75rem;
+  }
+  .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-tag { font-size: 0.75rem; font-weight: 600; color: var(--gold); }
+  .review-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .review-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+  .reviewer-info { display: flex; align-items: center; gap: 0.75rem; }
+  .reviewer-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem;
+  }
+  .review-text { font-size: 0.875rem; color: #ccc; line-height: 1.6; }
+
+  /* ======================================
+     PAGE: BOOKING
+  ====================================== */
+  .booking-layout {
+    display: grid; grid-template-columns: 1fr 380px;
+    gap: 2rem; padding-top: 6rem;
+  }
+  .booking-steps { display: flex; gap: 0; margin-bottom: 2rem; }
+  .booking-step {
+    flex: 1; text-align: center; padding: 1rem;
+    position: relative;
+  }
+  .booking-step::after {
+    content: ''; position: absolute;
+    top: 50%; right: 0;
+    transform: translateY(-50%);
+    width: 1px; height: 30px;
+    background: var(--border);
+  }
+  .booking-step:last-child::after { display: none; }
+  .bs-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--bg3);
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 600;
+    margin: 0 auto 0.5rem;
+    transition: all 0.3s;
+  }
+  .booking-step.active .bs-num { background: var(--gold); border-color: var(--gold); color: #000; }
+  .booking-step.done .bs-num { background: var(--green); border-color: var(--green); color: #000; }
+  .bs-label { font-size: 0.75rem; color: var(--gray); }
+  .booking-step.active .bs-label { color: var(--white); }
+  .calendar { background: var(--bg3); border-radius: 16px; padding: 1.5rem; }
+  .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+  .cal-month { font-weight: 700; font-size: 1rem; }
+  .cal-nav { background: none; border: 1px solid var(--border); color: var(--gray); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 0.9rem; }
+  .cal-nav:hover { border-color: var(--gold); color: var(--gold); }
+  .cal-days-header { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 0.75rem; color: var(--gray); margin-bottom: 0.5rem; }
+  .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.3rem; }
+  .cal-day {
+    aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  .cal-day:hover { background: var(--bg4); }
+  .cal-day.today { border-color: var(--gold); color: var(--gold); }
+  .cal-day.selected { background: var(--gold); color: #000; font-weight: 700; }
+  .cal-day.disabled { opacity: 0.3; cursor: not-allowed; }
+  .cal-day.empty { pointer-events: none; }
+  .time-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .time-slot {
+    padding: 0.6rem;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 0.8rem; font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--gray);
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .time-slot:hover { border-color: var(--gold); color: var(--white); }
+  .time-slot.selected { background: var(--gold); border-color: var(--gold); color: #000; font-weight: 700; }
+  .time-slot.taken { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+  .booking-summary {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .summary-barber { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+  .summary-service { background: var(--bg3); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; }
+  .summary-row { display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.5rem; }
+  .summary-total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+  .payment-methods { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+  .payment-method {
+    flex: 1; padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.8rem; color: var(--gray);
+    transition: all 0.2s;
+    background: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .payment-method.selected { border-color: var(--gold); color: var(--gold); background: rgba(212,168,67,0.05); }
+  .payment-method i { display: block; font-size: 1.2rem; margin-bottom: 0.25rem; }
+
+  /* ======================================
+     PAGE: DASHBOARD
+  ====================================== */
+  .dashboard-layout {
+    display: grid; grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+  }
+  .sidebar {
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem;
+    position: sticky; top: 64px;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+  .sidebar-section { margin-bottom: 2rem; }
+  .sidebar-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gray2); font-weight: 600; margin-bottom: 0.75rem; }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--gray);
+    transition: all 0.2s;
+    border: none; background: none;
+    width: 100%; text-align: left;
+    font-family: 'Inter', sans-serif;
+  }
+  .sidebar-item:hover { background: var(--bg3); color: var(--white); }
+  .sidebar-item.active { background: rgba(212,168,67,0.1); color: var(--gold); border: 1px solid rgba(212,168,67,0.2); }
+  .sidebar-item i { width: 18px; text-align: center; }
+  .sidebar-item .badge { margin-left: auto; }
+  .dashboard-main { padding: 2rem; padding-top: calc(64px + 2rem); }
+  .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+  .dashboard-title { font-size: 1.5rem; font-weight: 800; }
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .metric-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    transition: all 0.3s;
+  }
+  .metric-card:hover { border-color: rgba(212,168,67,0.3); transform: translateY(-2px); }
+  .metric-label { font-size: 0.8rem; color: var(--gray); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
+  .metric-value { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.25rem; }
+  .metric-change { font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem; }
+  .metric-change.up { color: var(--green); }
+  .metric-change.down { color: var(--red); }
+  .chart-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+  .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+  .chart-title { font-size: 1rem; font-weight: 700; }
+  .chart-canvas { height: 220px; position: relative; }
+  .bar-chart { display: flex; align-items: flex-end; gap: 0.5rem; height: 100%; }
+  .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .bar-fill {
+    width: 100%;
+    border-radius: 6px 6px 0 0;
+    background: linear-gradient(180deg, var(--gold), rgba(212,168,67,0.3));
+    transition: height 1s ease;
+    min-height: 4px;
+    cursor: pointer;
+    position: relative;
+  }
+  .bar-fill:hover { background: linear-gradient(180deg, var(--gold2), rgba(240,192,96,0.4)); }
+  .bar-label { font-size: 0.7rem; color: var(--gray); }
+  .bar-val { font-size: 0.65rem; color: var(--gold); }
+  .upcoming-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .appointment-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .appt-time {
+    text-align: center; min-width: 60px;
+    background: rgba(212,168,67,0.1);
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 8px;
+    padding: 0.4rem;
+  }
+  .appt-time-main { font-weight: 700; font-size: 0.9rem; color: var(--gold); }
+  .appt-time-ampm { font-size: 0.7rem; color: var(--gray); }
+  .appt-details { flex: 1; }
+  .appt-client { font-weight: 600; font-size: 0.875rem; }
+  .appt-service { color: var(--gray); font-size: 0.8rem; }
+  .appt-price { font-weight: 700; color: var(--gold); }
+  .appt-actions { display: flex; gap: 0.5rem; }
+  .appt-btn {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: none; cursor: pointer;
+    color: var(--gray); font-size: 0.8rem;
+    transition: all 0.2s;
+  }
+  .appt-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .appt-btn.accept:hover { border-color: var(--green); color: var(--green); }
+  .appt-btn.reject:hover { border-color: var(--red); color: var(--red); }
+
+  /* AI Card */
+  .ai-card {
+    background: linear-gradient(135deg, rgba(68,136,255,0.08), rgba(212,168,67,0.05));
+    border: 1px solid rgba(68,136,255,0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+  .ai-title { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; margin-bottom: 1rem; }
+  .ai-title i { color: var(--blue); }
+  .ai-tip {
+    background: var(--bg3);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem; color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ai-tip:hover { background: var(--bg4); }
+  .ai-tip-label { font-size: 0.7rem; color: var(--blue); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem; }
+
+  /* ======================================
+     PAGE: EARNINGS
+  ====================================== */
+  .earnings-overview { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .earning-period-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .earning-period-card:hover, .earning-period-card.active { border-color: var(--gold); box-shadow: var(--gold-glow); }
+  .ep-period { font-size: 0.8rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+  .ep-amount { font-size: 2.2rem; font-weight: 900; margin-bottom: 0.25rem; }
+  .ep-change { font-size: 0.8rem; color: var(--green); }
+  .line-chart-viz { height: 200px; display: flex; align-items: flex-end; gap: 4px; }
+  .line-chart-bar {
+    flex: 1; border-radius: 4px 4px 0 0;
+    background: linear-gradient(180deg, var(--gold), rgba(212,168,67,0.2));
+    min-height: 4px;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .line-chart-bar:hover { background: linear-gradient(180deg, var(--gold2), rgba(240,192,96,0.3)); }
+  .transaction-row {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .transaction-row:last-child { border: none; }
+  .txn-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .txn-icon.income { background: rgba(57,255,20,0.1); color: var(--green); }
+  .txn-icon.payout { background: rgba(68,136,255,0.1); color: var(--blue); }
+  .txn-icon.fee { background: rgba(255,68,68,0.1); color: var(--red); }
+  .txn-details { flex: 1; }
+  .txn-name { font-weight: 600; font-size: 0.875rem; }
+  .txn-date { font-size: 0.75rem; color: var(--gray); }
+  .txn-amount { font-weight: 700; }
+  .txn-amount.positive { color: var(--green); }
+  .txn-amount.negative { color: var(--red); }
+
+  /* ======================================
+     PAGE: AUTH
+  ====================================== */
+  .auth-page {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,168,67,0.05), transparent 60%);
+    padding-top: 80px;
+  }
+  .auth-card {
+    width: 100%; max-width: 440px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem;
+  }
+  .auth-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 0.25rem;
+  }
+  .auth-tagline { text-align: center; color: var(--gray); font-size: 0.875rem; margin-bottom: 2rem; }
+  .account-type-selector { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .account-type {
+    flex: 1; padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: none; color: var(--gray);
+    font-family: 'Inter', sans-serif;
+  }
+  .account-type.selected { border-color: var(--gold); background: rgba(212,168,67,0.05); color: var(--white); }
+  .account-type i { display: block; font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--gold); }
+  .account-type-label { font-size: 0.85rem; font-weight: 600; }
+  .divider-text {
+    display: flex; align-items: center; gap: 1rem;
+    margin: 1.5rem 0;
+    font-size: 0.8rem; color: var(--gray);
+  }
+  .divider-text::before, .divider-text::after {
+    content: ''; flex: 1;
+    height: 1px; background: var(--border);
+  }
+  .google-btn {
+    width: 100%; padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg3);
+    color: var(--white);
+    font-size: 0.875rem; font-weight: 500;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 1rem;
+  }
+  .google-btn:hover { border-color: var(--gold); }
+
+  /* ======================================
+     PAGE: SETTINGS
+  ====================================== */
+  .settings-layout { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; padding-top: 5rem; }
+  .settings-nav { padding-top: 2rem; }
+  .settings-nav-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.875rem; color: var(--gray);
+    transition: all 0.2s;
+    margin-bottom: 0.25rem;
+    border: none; background: none;
+    width: 100%; text-align: left;
+    font-family: 'Inter', sans-serif;
+  }
+  .settings-nav-item:hover { background: var(--bg3); color: var(--white); }
+  .settings-nav-item.active { background: rgba(212,168,67,0.1); color: var(--gold); }
+  .settings-nav-item i { width: 18px; text-align: center; }
+  .settings-content { padding-top: 2rem; }
+  .settings-section { margin-bottom: 2.5rem; }
+  .settings-section-title { font-size: 1rem; font-weight: 700; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+  .toggle {
+    width: 44px; height: 24px;
+    background: var(--bg3);
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.3s;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .toggle.on { background: var(--gold); border-color: var(--gold); }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    background: var(--white);
+    border-radius: 50%;
+    top: 2px; left: 2px;
+    transition: transform 0.3s;
+  }
+  .toggle.on::after { transform: translateX(20px); }
+  .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+  .setting-row:last-child { border: none; }
+  .setting-info { flex: 1; }
+  .setting-name { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.2rem; }
+  .setting-desc { font-size: 0.8rem; color: var(--gray); }
+
+  /* ======================================
+     PAGE: ADMIN
+  ====================================== */
+  .admin-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .admin-metric {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+  .am-icon { font-size: 1.5rem; color: var(--gold); margin-bottom: 0.75rem; }
+  .am-value { font-size: 2rem; font-weight: 900; margin-bottom: 0.25rem; }
+  .am-label { font-size: 0.8rem; color: var(--gray); }
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .admin-table th, .admin-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .admin-table th { color: var(--gray); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+  .admin-table tr:hover td { background: var(--bg3); }
+
+  /* ======================================
+     PORTFOLIO PAGE
+  ====================================== */
+  .portfolio-full { padding-top: 7rem; }
+  .portfolio-masonry { columns: 3; gap: 1rem; }
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+  }
+  .masonry-img {
+    width: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    background: var(--bg3);
+  }
+  .masonry-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .masonry-item:hover .masonry-info { opacity: 1; }
+
+  /* Floating AI Button */
+  .ai-float-btn {
+    position: fixed; bottom: 2rem; right: 2rem;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4488ff, #7c4dff);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: white;
+    box-shadow: 0 8px 32px rgba(68,136,255,0.4);
+    z-index: 900;
+    transition: transform 0.2s;
+    animation: glow 2s ease-in-out infinite;
+  }
+  .ai-float-btn:hover { transform: scale(1.1); }
+
+  /* ===== NOTIFICATION DOT ===== */
+  .notif-dot {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: absolute;
+    top: -2px; right: -2px;
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-nav {
+      display: flex; gap: 0.5rem;
+    }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .booking-layout { grid-template-columns: 1fr; }
+    .dashboard-layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .hero-right { display: none; }
+    .settings-layout { grid-template-columns: 1fr; }
+    .portfolio-masonry { columns: 2; }
+    .admin-metrics { grid-template-columns: repeat(2, 1fr); }
+    .profile-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .earnings-overview { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Scrollable section */
+  .scroll-x { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem; }
+  .scroll-x::-webkit-scrollbar { height: 4px; }
+  .scroll-x > * { flex-shrink: 0; }
+
+  /* Pill nav inside dashboard */
+  .pill-nav { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .pill {
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem; font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: none; color: var(--gray);
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .pill:hover, .pill.active { background: var(--gold); color: #000; border-color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- ====== NAVIGATION ====== -->
+<nav id="main-nav">
+  <div class="nav-logo" onclick="goTo('landing')">Line<span>Up</span></div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="goTo('discover')">Discover</button>
+    <button class="nav-link" onclick="goTo('dashboard')">Dashboard</button>
+    <button class="nav-link" onclick="goTo('earnings')">Earnings</button>
+    <button class="nav-link" onclick="goTo('portfolio')">Portfolio</button>
+    <button class="nav-link" onclick="goTo('admin')">Admin</button>
+  </div>
+  <div class="mobile-nav">
+    <div class="nav-avatar" onclick="goTo('auth')">D</div>
+  </div>
+  <div class="nav-links" id="auth-nav-right">
+    <button class="nav-link" onclick="goTo('auth')">Login</button>
+    <button class="nav-btn" onclick="goTo('auth')">Get Started Free</button>
+  </div>
+</nav>
+
+<!-- ====== TOAST CONTAINER ====== -->
+<div id="toast-container"></div>
+
+<!-- ====== AI MODAL ====== -->
+<div class="modal-overlay" id="ai-modal" onclick="closeModal('ai-modal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" style="display:flex;align-items:center;gap:0.5rem;"><i class="fa-solid fa-robot" style="color:var(--blue)"></i> LineUp AI Assistant</div>
+      <button class="modal-close" onclick="closeModal('ai-modal')">✕</button>
+    </div>
+    <div id="ai-output" style="background:var(--bg3);border-radius:12px;padding:1rem;min-height:100px;font-size:0.875rem;line-height:1.7;color:#ccc;margin-bottom:1rem;">
+      👋 Hi! I'm your AI business assistant. Ask me anything about growing your barber business, writing captions, or getting more clients!
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
+      <button class="chip" onclick="aiPrompt('caption')">✍️ Caption ideas</button>
+      <button class="chip" onclick="aiPrompt('tips')">💡 Business tips</button>
+      <button class="chip" onclick="aiPrompt('promo')">📱 Promo post</button>
+      <button class="chip" onclick="aiPrompt('retention')">🔄 Client retention</button>
+      <button class="chip" onclick="aiPrompt('reminder')">🔔 Reminder text</button>
+    </div>
+    <div style="display:flex;gap:0.5rem;">
+      <input class="form-input" id="ai-input" placeholder="Ask the AI anything..." style="flex:1">
+      <button class="btn btn-gold" onclick="aiSend()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== BOOKING MODAL ====== -->
+<div class="modal-overlay" id="booking-confirm-modal" onclick="closeModal('booking-confirm-modal')">
+  <div class="modal" onclick="event.stopPropagation()" style="text-align:center">
+    <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+    <div class="modal-title" style="margin-bottom:0.5rem;">Booking Confirmed!</div>
+    <p style="color:var(--gray);font-size:0.875rem;margin-bottom:1.5rem;">Your appointment with <strong style="color:var(--white)">Marcus "The Blade" Johnson</strong> has been confirmed for <strong style="color:var(--gold)">Thursday, Dec 19 at 2:00 PM</strong></p>
+    <div style="background:var(--bg3);border-radius:12px;padding:1rem;margin-bottom:1.5rem;text-align:left">
+      <div class="summary-row"><span style="color:var(--gray)">Service</span><span>Skin Fade + Lineup</span></div>
+      <div class="summary-row"><span style="color:var(--gray)">Duration</span><span>45 min</span></div>
+      <div class="summary-row"><span style="color:var(--gray)">Location</span><span>The Luxe Barbershop, ATL</span></div>
+      <div class="summary-total"><span>Total Paid</span><span style="color:var(--gold)">$40</span></div>
+    </div>
+    <button class="btn btn-gold" style="width:100%" onclick="closeModal('booking-confirm-modal');showToast('success','Reminder set!','You\'ll get a notification 1 hour before')">
+      <i class="fa-solid fa-bell"></i> Set Reminder
+    </button>
+  </div>
+</div>
+
+<!-- ======================================
+     PAGE: LANDING
+====================================== -->
+<div class="page active" id="page-landing">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container" style="display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:center">
+      <div class="hero-content animate-fade-up">
+        <div class="hero-eyebrow">
+          <i class="fa-solid fa-scissors"></i>
+          The Future of Barbering is Here
+        </div>
+        <h1 class="hero-title">
+          The<br>
+          <span class="gold">Shopify</span><br>
+          for <span class="stroke">Barbers</span>
+        </h1>
+        <p class="hero-desc">
+          Manage bookings, accept payments, showcase your portfolio, and grow your brand — all from one premium platform built exclusively for barbers.
+        </p>
+        <div class="hero-cta">
+          <button class="btn btn-gold btn-lg" onclick="goTo('auth')">
+            <i class="fa-solid fa-scissors"></i> Start for Free
+          </button>
+          <button class="btn btn-outline btn-lg" onclick="goTo('discover')">
+            <i class="fa-solid fa-compass"></i> Explore Barbers
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">12K+</div>
+            <div class="hero-stat-label">Active Barbers</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">$2.4M</div>
+            <div class="hero-stat-label">Paid to Barbers</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">98K+</div>
+            <div class="hero-stat-label">Bookings Made</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-right" style="position:relative">
+        <div class="hero-phone-mockup animate-float" style="position:relative;z-index:2">
+          <div class="phone-notch"></div>
+          <div class="phone-profile-header">
+            <div class="phone-avatar">M</div>
+            <div>
+              <div style="font-weight:700;font-size:0.9rem">Marcus "The Blade"</div>
+              <div style="color:var(--gold);font-size:0.75rem">⭐ 4.9 · Atlanta, GA</div>
+            </div>
+          </div>
+          <div class="phone-gallery">
+            <div class="phone-gallery-item gallery-p1"><div class="gallery-placeholder">✂️</div></div>
+            <div class="phone-gallery-item gallery-p2"><div class="gallery-placeholder">💈</div></div>
+            <div class="phone-gallery-item gallery-p3"><div class="gallery-placeholder">🪒</div></div>
+            <div class="phone-gallery-item gallery-p4"><div class="gallery-placeholder">✨</div></div>
+          </div>
+          <button class="phone-book-btn" onclick="goTo('booking')">Book Appointment — $40</button>
+          <div class="phone-earnings-card">
+            <div>
+              <div style="font-size:0.7rem;color:var(--gray)">Today's Earnings</div>
+              <div style="font-size:1.3rem;font-weight:800;color:var(--gold)">$312</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:0.7rem;color:var(--gray)">Bookings</div>
+              <div style="font-size:1.3rem;font-weight:800">8</div>
+            </div>
+          </div>
+        </div>
+        <div class="floating-badge fb1">
+          <i class="fa-solid fa-bolt" style="color:var(--gold)"></i>
+          <span>+$120 this hour</span>
+        </div>
+        <div class="floating-badge fb2" style="animation: float 3.5s ease-in-out 0.5s infinite">
+          <i class="fa-solid fa-calendar-check" style="color:var(--green)"></i>
+          <span>New booking from Carlos</span>
+        </div>
+        <div class="floating-badge fb3" style="animation: float 4s ease-in-out 1s infinite">
+          <i class="fa-solid fa-star" style="color:var(--gold)"></i>
+          <span>5⭐ review received</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUSTED BY -->
+  <section style="padding:3rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden">
+    <div class="container" style="text-align:center">
+      <div style="color:var(--gray);font-size:0.8rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:2rem">Trusted by barbers at top shops nationwide</div>
+      <div class="scroll-x" style="justify-content:center;flex-wrap:wrap;gap:2rem">
+        <div style="font-size:1.1rem;font-weight:700;color:var(--gray2)">LUXE CUTS</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--gray2)">FADE KINGS</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--gray2)">THE BLADE BAR</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--gray2)">CROWN CUTS</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--gray2)">SHARP EDGES</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--gray2)">PRESTIGE BARBERS</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:3rem">
+        <div class="section-tag"><i class="fa-solid fa-sparkles"></i> Everything You Need</div>
+        <div class="section-title" style="text-align:center">Built for barbers.<br>Loved by clients.</div>
+        <div class="section-sub" style="margin:0 auto;text-align:center">Every feature designed to help you earn more, work smarter, and build the business you deserve.</div>
+      </div>
+      <div class="grid grid-3">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-calendar"></i></div>
+          <div class="feature-title">Smart Booking System</div>
+          <div class="feature-desc">Clients book 24/7. You set your schedule, block off dates, and manage cancellations with one tap.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-brands fa-stripe"></i></div>
+          <div class="feature-title">Built-in Payments</div>
+          <div class="feature-desc">Stripe-powered payments. Auto-deduct platform fee. Instant payouts. Full refund management.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-images"></i></div>
+          <div class="feature-title">Portfolio Gallery</div>
+          <div class="feature-desc">Instagram-style portfolio. Upload cuts, tag styles, create featured pieces. Let your work sell itself.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="feature-title">Earnings Analytics</div>
+          <div class="feature-desc">Daily, weekly, monthly, yearly breakdowns. Visual charts. Spot trends and maximize your earnings.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-robot"></i></div>
+          <div class="feature-title">AI-Powered Tools</div>
+          <div class="feature-desc">AI captions, business tips, client retention strategies, and automated appointment reminders.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-share-nodes"></i></div>
+          <div class="feature-title">Social Integration</div>
+          <div class="feature-desc">Connect Instagram, TikTok, YouTube, and Snapchat. Drive followers straight to your booking page.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center">
+        <div>
+          <div class="section-tag"><i class="fa-solid fa-route"></i> How It Works</div>
+          <h2 class="section-title">Up and running<br>in <span class="highlight">5 minutes</span></h2>
+          <p class="section-sub" style="margin-bottom:2.5rem">Get your full barber business online faster than it takes to do a shape-up.</p>
+          <div class="steps">
+            <div class="step-line"></div>
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Create Your Profile</div>
+                <div class="step-desc">Sign up, upload your photo, write your bio, add your services and prices. Takes 5 minutes.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">Upload Your Portfolio</div>
+                <div class="step-desc">Showcase your best cuts. Tag styles like fades, tapers, designs. Let the work speak for itself.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">Start Accepting Bookings</div>
+                <div class="step-desc">Share your profile link. Clients book and pay directly. You get notified instantly.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">Get Paid & Grow</div>
+                <div class="step-desc">Payments hit your account automatically. Use analytics and AI to keep growing every month.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="background:var(--bg);border-radius:24px;padding:2rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+              <div style="font-weight:700">Weekly Earnings</div>
+              <div class="badge badge-green"><i class="fa-solid fa-arrow-up"></i> +23%</div>
+            </div>
+            <div class="bar-chart" id="demo-chart" style="height:180px;margin-bottom:1rem">
+              <!-- bars injected by JS -->
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem">
+              <div style="text-align:center;background:rgba(212,168,67,0.05);border:1px solid rgba(212,168,67,0.15);border-radius:12px;padding:0.75rem">
+                <div style="font-size:1.2rem;font-weight:800;color:var(--gold)">$1,840</div>
+                <div style="font-size:0.7rem;color:var(--gray)">This Week</div>
+              </div>
+              <div style="text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:0.75rem">
+                <div style="font-size:1.2rem;font-weight:800">47</div>
+                <div style="font-size:0.7rem;color:var(--gray)">Cuts Done</div>
+              </div>
+              <div style="text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:0.75rem">
+                <div style="font-size:1.2rem;font-weight:800">⭐ 4.9</div>
+                <div style="font-size:0.7rem;color:var(--gray)">Rating</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:3rem">
+        <div class="section-tag"><i class="fa-solid fa-tag"></i> Pricing</div>
+        <h2 class="section-title">Simple,<br>transparent pricing</h2>
+        <p class="section-sub" style="margin:0 auto;text-align:center">Start free. Grow on your terms. We only win when you win.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="pricing-card">
+          <div class="pricing-name">Free</div>
+          <div class="pricing-price">$0 <span>/ month</span></div>
+          <p style="color:var(--gray);font-size:0.85rem;margin-bottom:1rem">Perfect for getting started</p>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> 20 free bookings</li>
+            <li><i class="fa-solid fa-check"></i> Basic profile page</li>
+            <li><i class="fa-solid fa-check"></i> Portfolio (10 photos)</li>
+            <li><i class="fa-solid fa-check"></i> In-app payments</li>
+            <li><i class="fa-solid fa-check"></i> $1 fee per booking after 20</li>
+            <li style="color:var(--gray2)"><i class="fa-solid fa-xmark"></i> Analytics dashboard</li>
+            <li style="color:var(--gray2)"><i class="fa-solid fa-xmark"></i> AI tools</li>
+          </ul>
+          <button class="btn btn-outline" style="width:100%" onclick="goTo('auth')">Get Started Free</button>
+        </div>
+        <div class="pricing-card popular">
+          <div class="popular-tag">Most Popular</div>
+          <div class="pricing-name">Pro</div>
+          <div class="pricing-price">$10 <span>/ month</span></div>
+          <p style="color:var(--gray);font-size:0.85rem;margin-bottom:1rem">For serious barbers</p>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Unlimited bookings</li>
+            <li><i class="fa-solid fa-check"></i> Premium profile + custom link</li>
+            <li><i class="fa-solid fa-check"></i> Unlimited portfolio</li>
+            <li><i class="fa-solid fa-check"></i> $0 platform fee per booking</li>
+            <li><i class="fa-solid fa-check"></i> Full analytics dashboard</li>
+            <li><i class="fa-solid fa-check"></i> AI business tools</li>
+            <li><i class="fa-solid fa-check"></i> Priority support</li>
+          </ul>
+          <button class="btn btn-gold" style="width:100%" onclick="showToast('success','Pro plan selected!','Redirecting to checkout...')">Go Pro — $10/mo</button>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-name">Shop Owner</div>
+          <div class="pricing-price">$29 <span>/ month</span></div>
+          <p style="color:var(--gray);font-size:0.85rem;margin-bottom:1rem">For barbershop teams</p>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Up to 5 barber seats</li>
+            <li><i class="fa-solid fa-check"></i> Shop-level analytics</li>
+            <li><i class="fa-solid fa-check"></i> Team scheduling</li>
+            <li><i class="fa-solid fa-check"></i> $0 platform fee</li>
+            <li><i class="fa-solid fa-check"></i> White-label booking page</li>
+            <li><i class="fa-solid fa-check"></i> All AI tools</li>
+            <li><i class="fa-solid fa-check"></i> Dedicated support</li>
+          </ul>
+          <button class="btn btn-outline" style="width:100%" onclick="showToast('info','Shop plan','Contact us for team onboarding')">Contact Sales</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" style="background:var(--bg2);border-top:1px solid var(--border)">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:3rem">
+        <div class="section-tag"><i class="fa-solid fa-quote-left"></i> Reviews</div>
+        <h2 class="section-title">Barbers love<br><span class="highlight">LineUp</span></h2>
+      </div>
+      <div class="grid grid-3">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-text">LineUp completely changed how I run my business. I used to lose bookings because I wasn't always on my phone. Now everything is automated and I make 40% more per month.</div>
+          <div class="testimonial-author">
+            <div class="t-avatar">M</div>
+            <div>
+              <div style="font-weight:700;font-size:0.875rem">Marcus Johnson</div>
+              <div style="color:var(--gold);font-size:0.75rem">⭐⭐⭐⭐⭐ · Atlanta, GA</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-text">The portfolio feature is insane. My Instagram connects straight to my booking page. Last month I got 23 new clients just from social media alone. This is a game changer.</div>
+          <div class="testimonial-author">
+            <div class="t-avatar" style="background:linear-gradient(135deg,#9b59b6,#6c3483)">D</div>
+            <div>
+              <div style="font-weight:700;font-size:0.875rem">Darius Williams</div>
+              <div style="color:var(--gold);font-size:0.75rem">⭐⭐⭐⭐⭐ · Houston, TX</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-text">I was skeptical at first but the AI tools actually work. The caption generator saved me so much time on social media. My engagement went up 3x since I started using LineUp.</div>
+          <div class="testimonial-author">
+            <div class="t-avatar" style="background:linear-gradient(135deg,#2980b9,#1a5276)">J</div>
+            <div>
+              <div style="font-weight:700;font-size:0.875rem">Jordan Smith</div>
+              <div style="color:var(--gold);font-size:0.75rem">⭐⭐⭐⭐⭐ · Miami, FL</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner">
+        <div class="cta-title">Ready to level up<br>your <span style="color:var(--gold)">barber business?</span></div>
+        <p style="color:var(--gray);max-width:400px;margin:1rem auto 2rem;font-size:1rem;line-height:1.7">Join 12,000+ barbers who use LineUp to manage their business, accept payments, and grow faster.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+          <button class="btn btn-gold btn-lg" onclick="goTo('auth')"><i class="fa-solid fa-scissors"></i> Create Free Account</button>
+          <button class="btn btn-outline btn-lg" onclick="goTo('discover')"><i class="fa-solid fa-eye"></i> See Live Demo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="grid grid-4" style="margin-bottom:3rem">
+        <div>
+          <div class="footer-brand">LineUp</div>
+          <p style="color:var(--gray);font-size:0.875rem;line-height:1.7;max-width:220px;margin-bottom:1rem">The premium booking and business platform built exclusively for barbers.</p>
+          <div class="social-icons">
+            <a class="social-icon" onclick="showToast('info','Instagram','@lineupapp')"><i class="fa-brands fa-instagram"></i></a>
+            <a class="social-icon" onclick="showToast('info','TikTok','@lineupapp')"><i class="fa-brands fa-tiktok"></i></a>
+            <a class="social-icon" onclick="showToast('info','Twitter/X','@lineupapp')"><i class="fa-brands fa-x-twitter"></i></a>
+            <a class="social-icon" onclick="showToast('info','YouTube','LineUp Official')"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Product</div>
+          <ul class="footer-links">
+            <li><a href="#" onclick="goTo('discover')">Discover Barbers</a></li>
+            <li><a href="#" onclick="goTo('dashboard')">Dashboard</a></li>
+            <li><a href="#" onclick="goTo('portfolio')">Portfolio</a></li>
+            <li><a href="#" onclick="goTo('earnings')">Analytics</a></li>
+            <li><a href="#" onclick="goTo('booking')">Booking</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+        <div style="font-size:0.8rem;color:var(--gray)">© 2025 LineUp Inc. All rights reserved.</div>
+        <div style="font-size:0.8rem;color:var(--gray)">Made with ✂️ for barbers everywhere</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ======================================
+     PAGE: DISCOVER
+====================================== -->
+<div class="page" id="page-discover">
+  <div class="discover-hero">
+    <div class="container">
+      <div class="section-tag" style="margin:0 auto 1rem;width:fit-content"><i class="fa-solid fa-compass"></i> Find Your Barber</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;margin-bottom:1rem">Discover Top Barbers <span style="color:var(--gold)">Near You</span></h1>
+      <p style="color:var(--gray);margin-bottom:2rem">Book with the best. View portfolios, check reviews, and lock in your next cut.</p>
+      <div class="search-bar">
+        <i class="fa-solid fa-search" style="color:var(--gray);padding:0 0 0 1rem"></i>
+        <input type="text" placeholder="Search barbers, styles, locations..." oninput="filterBarbers(this.value)">
+        <button class="btn btn-gold btn-sm" onclick="showToast('info','Location detected','Showing barbers near Atlanta, GA')">
+          <i class="fa-solid fa-location-dot"></i> Near Me
+        </button>
+      </div>
+      <div class="filter-chips">
+        <button class="chip active" onclick="setChip(this,'all')">All Styles</button>
+        <button class="chip" onclick="setChip(this,'fade')">Fades</button>
+        <button class="chip" onclick="setChip(this,'taper')">Tapers</button>
+        <button class="chip" onclick="setChip(this,'design')">Designs</button>
+        <button class="chip" onclick="setChip(this,'beard')">Beard Work</button>
+        <button class="chip" onclick="setChip(this,'curly')">Curly Hair</button>
+        <button class="chip" onclick="setChip(this,'burst')">Burst Fade</button>
+        <button class="chip" onclick="setChip(this,'kids')">Kids Cuts</button>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="padding-bottom:4rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+      <div style="font-size:0.9rem;color:var(--gray)">Showing <strong style="color:var(--white)" id="barber-count">6</strong> barbers</div>
+      <select class="form-input" style="width:auto;padding:0.4rem 0.75rem;font-size:0.8rem">
+        <option>Sort: Top Rated</option>
+        <option>Sort: Nearest</option>
+        <option>Sort: Lowest Price</option>
+        <option>Sort: Most Booked</option>
+      </select>
+    </div>
+    <div class="grid grid-3" id="barbers-grid">
+      <!-- Barber Cards injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ======================================
+     PAGE: BARBER PROFILE
+====================================== -->
+<div class="page" id="page-profile">
+  <div class="profile-cover">
+    <div class="profile-cover-bg" style="background:linear-gradient(135deg,#1a1208,#2a1f08)">💈</div>
+    <div class="profile-cover-overlay"></div>
+  </div>
+  <div class="profile-content">
+    <div class="profile-header">
+      <div style="display:flex;align-items:flex-end;gap:1.5rem">
+        <div style="position:relative">
+          <div class="profile-avatar-wrap">M</div>
+          <div class="verified-badge"><i class="fa-solid fa-check" style="font-size:0.6rem;color:#fff"></i></div>
+        </div>
+        <div>
+          <div class="profile-name">Marcus "The Blade" Johnson</div>
+          <div class="profile-title">Master Barber · 12 Years Experience</div>
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem;color:var(--gray);font-size:0.85rem">
+            <i class="fa-solid fa-location-dot" style="color:var(--gold)"></i>
+            The Luxe Barbershop · Atlanta, GA
+          </div>
+          <div class="profile-social" style="margin-top:0.75rem">
+            <a class="social-pill sp-insta" onclick="showToast('info','Instagram','Opening @marcusblade...')"><i class="fa-brands fa-instagram"></i> @marcusblade</a>
+            <a class="social-pill sp-tiktok" onclick="showToast('info','TikTok','Opening @marcusblade...')"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+            <a class="social-pill sp-youtube" onclick="showToast('info','YouTube','Opening channel...')"><i class="fa-brands fa-youtube"></i> YouTube</a>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:1rem">
+        <button class="btn btn-gold" onclick="goTo('booking')"><i class="fa-solid fa-calendar-plus"></i> Book Now</button>
+        <button class="btn btn-outline" onclick="showToast('success','Following!','You\'re now following Marcus')"><i class="fa-solid fa-heart"></i> Follow</button>
+      </div>
+    </div>
+
+    <div class="profile-stats" style="margin-bottom:2rem">
+      <div class="profile-stat"><div class="profile-stat-num">4.9</div><div class="profile-stat-label">⭐ Rating</div></div>
+      <div class="profile-stat"><div class="profile-stat-num">1,240</div><div class="profile-stat-label">Total Cuts</div></div>
+      <div class="profile-stat"><div class="profile-stat-num">89</div><div class="profile-stat-label">Reviews</div></div>
+      <div class="profile-stat"><div class="profile-stat-num">423</div><div class="profile-stat-label">Followers</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 340px;gap:2rem;padding-bottom:4rem">
+      <div>
+        <!-- TABS -->
+        <div class="tabs">
+          <button class="tab active" onclick="profileTab(this,'portfolio')">Portfolio</button>
+          <button class="tab" onclick="profileTab(this,'services')">Services</button>
+          <button class="tab" onclick="profileTab(this,'reviews')">Reviews (89)</button>
+          <button class="tab" onclick="profileTab(this,'about')">About</button>
+        </div>
+
+        <!-- Portfolio Tab -->
+        <div id="tab-portfolio">
+          <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap">
+            <button class="chip active" onclick="setChip(this)">All</button>
+            <button class="chip" onclick="setChip(this)">Fades</button>
+            <button class="chip" onclick="setChip(this)">Tapers</button>
+            <button class="chip" onclick="setChip(this)">Designs</button>
+            <button class="chip" onclick="setChip(this)">Beards</button>
+          </div>
+          <div class="portfolio-grid" id="profile-portfolio">
+          </div>
+        </div>
+
+        <!-- Services Tab -->
+        <div id="tab-services" style="display:none">
+          <div class="services-grid" id="profile-services"></div>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div id="tab-reviews" style="display:none">
+          <div id="profile-reviews"></div>
+          <button class="btn btn-outline" style="width:100%" onclick="showToast('success','Review submitted!','Thanks for your feedback')">Leave a Review</button>
+        </div>
+
+        <!-- About Tab -->
+        <div id="tab-about" style="display:none">
+          <div class="card" style="background:var(--bg3)">
+            <p style="color:#ccc;line-height:1.8;font-size:0.9rem">
+              Yo, I'm Marcus — master barber with 12 years in the game. Started in my mom's kitchen with a $30 pair of clippers and built up to running my own chair at The Luxe Barbershop in Atlanta's Westside.
+              <br><br>
+              I specialize in skin fades, razor lineups, and creative hair designs. My goal with every client is to send them out feeling like the best version of themselves. That's not just a cut — that's a transformation.
+              <br><br>
+              Voted Atlanta's #1 Barber by Creative Loafing magazine two years running. Featured in Essence, GQ, and Complex.
+            </p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem">
+              <div style="background:var(--bg4);border-radius:10px;padding:1rem">
+                <div style="color:var(--gray);font-size:0.75rem;margin-bottom:0.25rem">Shop Hours</div>
+                <div style="font-size:0.85rem">Tue–Sat: 9am – 7pm</div>
+                <div style="font-size:0.85rem;color:var(--gray)">Sun–Mon: Closed</div>
+              </div>
+              <div style="background:var(--bg4);border-radius:10px;padding:1rem">
+                <div style="color:var(--gray);font-size:0.75rem;margin-bottom:0.25rem">Response Time</div>
+                <div style="font-size:0.85rem;color:var(--green)">Usually within 1 hr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar booking widget -->
+      <div>
+        <div class="booking-summary" style="position:sticky;top:80px">
+          <div style="font-weight:700;margin-bottom:1rem">Quick Book</div>
+          <div style="color:var(--gray);font-size:0.8rem;margin-bottom:0.5rem">Select Service</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem" id="quick-services">
+          </div>
+          <button class="btn btn-gold" style="width:100%;margin-bottom:0.75rem" onclick="goTo('booking')">
+            <i class="fa-solid fa-calendar-plus"></i> Check Availability
+          </button>
+          <button class="btn btn-ghost" style="width:100%;font-size:0.8rem" onclick="showToast('info','Message sent','Marcus will reply within 1 hour')">
+            <i class="fa-solid fa-message"></i> Message Marcus
+          </button>
+          <hr class="divider">
+          <div style="font-size:0.8rem;color:var(--gray);display:flex;align-items:center;gap:0.5rem">
+            <i class="fa-solid fa-shield-check" style="color:var(--green)"></i>
+            Secure payments · Free cancellation 24h
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================
+     PAGE: BOOKING
+====================================== -->
+<div class="page" id="page-booking">
+  <div class="container">
+    <div class="booking-layout">
+      <div>
+        <div style="margin-bottom:2rem">
+          <button class="btn btn-ghost btn-sm" onclick="goTo('profile')"><i class="fa-solid fa-arrow-left"></i> Back to Profile</button>
+          <h1 style="font-size:1.5rem;font-weight:800;margin-top:1rem">Book an Appointment</h1>
+        </div>
+        <!-- Steps -->
+        <div class="booking-steps card" style="padding:1rem;margin-bottom:2rem">
+          <div class="booking-step active" id="step1">
+            <div class="bs-num">1</div>
+            <div class="bs-label">Service</div>
+          </div>
+          <div class="booking-step" id="step2">
+            <div class="bs-num">2</div>
+            <div class="bs-label">Date & Time</div>
+          </div>
+          <div class="booking-step" id="step3">
+            <div class="bs-num">3</div>
+            <div class="bs-label">Payment</div>
+          </div>
+          <div class="booking-step" id="step4">
+            <div class="bs-num">4</div>
+            <div class="bs-label">Confirm</div>
+          </div>
+        </div>
+
+        <!-- Step 1: Choose Service -->
+        <div id="booking-step-1">
+          <h3 style="margin-bottom:1rem">Select Service</h3>
+          <div id="booking-services-list" style="display:flex;flex-direction:column;gap:0.75rem"></div>
+          <button class="btn btn-gold" style="width:100%;margin-top:1.5rem" onclick="nextStep(2)">Continue</button>
+        </div>
+
+        <!-- Step 2: Date & Time -->
+        <div id="booking-step-2" style="display:none">
+          <h3 style="margin-bottom:1rem">Select Date & Time</h3>
+          <div class="calendar" style="margin-bottom:1.5rem">
+            <div class="cal-header">
+              <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+              <div class="cal-month" id="cal-month-label">December 2024</div>
+              <button class="cal-nav" onclick="changeMonth(1)">›</button>
+            </div>
+            <div class="cal-days-header">
+              <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+            </div>
+            <div class="cal-days" id="cal-days"></div>
+          </div>
+          <h4 style="margin-bottom:1rem">Available Times — <span style="color:var(--gold)" id="selected-date-label">Select a date</span></h4>
+          <div class="time-slots" id="time-slots"></div>
+          <div style="display:flex;gap:1rem;margin-top:1.5rem">
+            <button class="btn btn-ghost" onclick="nextStep(1)">Back</button>
+            <button class="btn btn-gold" style="flex:1" onclick="nextStep(3)">Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Payment -->
+        <div id="booking-step-3" style="display:none">
+          <h3 style="margin-bottom:1rem">Payment</h3>
+          <div style="margin-bottom:1.25rem">
+            <div style="font-size:0.875rem;color:var(--gray);margin-bottom:0.75rem">Payment Method</div>
+            <div class="payment-methods">
+              <button class="payment-method selected" onclick="selectPayment(this)"><i class="fa-brands fa-stripe"></i> Card</button>
+              <button class="payment-method" onclick="selectPayment(this)"><i class="fa-brands fa-apple-pay"></i> Apple Pay</button>
+              <button class="payment-method" onclick="selectPayment(this)"><i class="fa-brands fa-google-pay"></i> Google Pay</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cardholder Name</label>
+            <input class="form-input" placeholder="Carlos Rivera" value="Carlos Rivera">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Card Number</label>
+            <input class="form-input" placeholder="4242 4242 4242 4242" value="4242 4242 4242 4242">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+            <div class="form-group">
+              <label class="form-label">Expiry</label>
+              <input class="form-input" placeholder="12/27" value="12/27">
+            </div>
+            <div class="form-group">
+              <label class="form-label">CVC</label>
+              <input class="form-input" placeholder="123" value="•••">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Add a Tip (optional)</label>
+            <div style="display:flex;gap:0.5rem">
+              <button class="chip" onclick="setTip(this,0)">No tip</button>
+              <button class="chip active" onclick="setTip(this,5)">$5</button>
+              <button class="chip" onclick="setTip(this,10)">$10</button>
+              <button class="chip" onclick="setTip(this,15)">$15</button>
+              <button class="chip" onclick="setTip(this,'custom')">Custom</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:1rem;margin-top:1.5rem">
+            <button class="btn btn-ghost" onclick="nextStep(2)">Back</button>
+            <button class="btn btn-gold" style="flex:1" onclick="nextStep(4)">Confirm & Pay</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Confirm -->
+        <div id="booking-step-4" style="display:none">
+          <div style="text-align:center;padding:3rem 1rem">
+            <div style="font-size:4rem;margin-bottom:1rem">🎉</div>
+            <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.5rem">Booking Confirmed!</h2>
+            <p style="color:var(--gray);margin-bottom:2rem">You're all set. See you Thursday at 2 PM!</p>
+            <div style="background:var(--bg3);border-radius:16px;padding:1.5rem;text-align:left;margin-bottom:1.5rem">
+              <div class="summary-row"><span style="color:var(--gray)">Barber</span><span>Marcus "The Blade"</span></div>
+              <div class="summary-row"><span style="color:var(--gray)">Service</span><span>Skin Fade + Lineup</span></div>
+              <div class="summary-row"><span style="color:var(--gray)">Date</span><span style="color:var(--gold)">Thu, Dec 19 · 2:00 PM</span></div>
+              <div class="summary-row"><span style="color:var(--gray)">Location</span><span>The Luxe Barbershop, ATL</span></div>
+              <div style="border-top:1px solid var(--border);margin:0.75rem 0"></div>
+              <div class="summary-row"><span style="color:var(--gray)">Service</span><span>$40</span></div>
+              <div class="summary-row"><span style="color:var(--gray)">Tip</span><span>$5</span></div>
+              <div class="summary-total"><span>Total Paid</span><span style="color:var(--gold)">$45</span></div>
+            </div>
+            <div style="display:flex;gap:1rem">
+              <button class="btn btn-outline" style="flex:1" onclick="goTo('discover')"><i class="fa-solid fa-compass"></i> Explore More</button>
+              <button class="btn btn-gold" style="flex:1" onclick="goTo('dashboard')"><i class="fa-solid fa-chart-line"></i> View Dashboard</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary Card -->
+      <div id="booking-summary-panel">
+        <div class="booking-summary">
+          <div style="font-weight:700;margin-bottom:1.25rem">Booking Summary</div>
+          <div class="summary-barber">
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#000">M</div>
+            <div>
+              <div style="font-weight:700;font-size:0.875rem">Marcus "The Blade"</div>
+              <div style="color:var(--gold);font-size:0.8rem">⭐ 4.9 · 1,240 cuts</div>
+            </div>
+          </div>
+          <div class="summary-service">
+            <div style="font-weight:600;font-size:0.875rem;margin-bottom:0.5rem" id="sum-service">Skin Fade + Lineup</div>
+            <div style="color:var(--gray);font-size:0.8rem;display:flex;gap:1rem">
+              <span><i class="fa-solid fa-clock"></i> 45 min</span>
+              <span id="sum-date"><i class="fa-solid fa-calendar"></i> Select date</span>
+            </div>
+          </div>
+          <div class="summary-row"><span style="color:var(--gray)">Service</span><span id="sum-price">$40</span></div>
+          <div class="summary-row"><span style="color:var(--gray)">Tip</span><span id="sum-tip">$5</span></div>
+          <div class="summary-row"><span style="color:var(--gray)">Platform fee</span><span>$1</span></div>
+          <div class="summary-total"><span>Total</span><span style="color:var(--gold)" id="sum-total">$46</span></div>
+          <div style="margin-top:1rem;padding:0.75rem;background:rgba(57,255,20,0.05);border:1px solid rgba(57,255,20,0.15);border-radius:8px;font-size:0.75rem;color:var(--green)">
+            <i class="fa-solid fa-shield-check"></i> Payments secured by Stripe. Free cancellation up to 24h before.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================
+     PAGE: DASHBOARD
+====================================== -->
+<div class="page" id="page-dashboard">
+  <div class="dashboard-layout" style="padding-top:64px">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div style="padding:1rem 0;margin-bottom:1rem;border-bottom:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:0.75rem">
+          <div class="nav-avatar" style="width:40px;height:40px;font-size:1rem">M</div>
+          <div>
+            <div style="font-weight:700;font-size:0.875rem">Marcus Johnson</div>
+            <div style="color:var(--gold);font-size:0.75rem">Master Barber · Pro</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Main</div>
+        <button class="sidebar-item active" onclick="setSidebarActive(this)"><i class="fa-solid fa-house"></i> Overview</button>
+        <button class="sidebar-item" onclick="setSidebarActive(this);goTo('earnings')"><i class="fa-solid fa-chart-line"></i> Earnings</button>
+        <button class="sidebar-item" onclick="setSidebarActive(this)"><i class="fa-solid fa-calendar"></i> Appointments <span class="badge badge-gold">3</span></button>
+        <button class="sidebar-item" onclick="setSidebarActive(this);goTo('portfolio')"><i class="fa-solid fa-images"></i> Portfolio</button>
+        <button class="sidebar-item" onclick="setSidebarActive(this)"><i class="fa-solid fa-users"></i> Clients</button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Business</div>
+        <button class="sidebar-item" onclick="setSidebarActive(this)"><i class="fa-solid fa-store"></i> My Profile</button>
+        <button class="sidebar-item" onclick="setSidebarActive(this)"><i class="fa-solid fa-scissors"></i> Services</button>
+        <button class="sidebar-item" onclick="setSidebarActive(this)"><i class="fa-solid fa-clock"></i> Schedule</button>
+        <button class="sidebar-item" onclick="setSidebarActive(this)"><i class="fa-solid fa-robot"></i> AI Tools <span class="badge badge-blue">New</span></button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Account</div>
+        <button class="sidebar-item" onclick="setSidebarActive(this);goTo('settings')"><i class="fa-solid fa-gear"></i> Settings</button>
+        <button class="sidebar-item" onclick="setSidebarActive(this)"><i class="fa-solid fa-headset"></i> Support</button>
+        <button class="sidebar-item" onclick="goTo('landing')"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="dashboard-main">
+      <div class="dashboard-header">
+        <div>
+          <div style="color:var(--gray);font-size:0.875rem;margin-bottom:0.25rem">Good morning ✂️</div>
+          <div class="dashboard-title">Marcus's Dashboard</div>
+        </div>
+        <div style="display:flex;gap:0.75rem">
+          <button class="btn btn-ghost btn-sm" onclick="openModal('ai-modal')"><i class="fa-solid fa-robot" style="color:var(--blue)"></i> AI Tools</button>
+          <button class="btn btn-gold btn-sm" onclick="goTo('booking')"><i class="fa-solid fa-plus"></i> New Booking</button>
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Today's Earnings <i class="fa-solid fa-coins" style="color:var(--gold)"></i></div>
+          <div class="metric-value" style="color:var(--gold)">$312</div>
+          <div class="metric-change up"><i class="fa-solid fa-arrow-up"></i> +18% vs yesterday</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">This Week <i class="fa-solid fa-calendar-week"></i></div>
+          <div class="metric-value">$1,840</div>
+          <div class="metric-change up"><i class="fa-solid fa-arrow-up"></i> +23% vs last week</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Bookings Today <i class="fa-solid fa-scissors"></i></div>
+          <div class="metric-value">8</div>
+          <div class="metric-change up"><i class="fa-solid fa-arrow-up"></i> 2 slots remaining</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Avg Ticket <i class="fa-solid fa-receipt"></i></div>
+          <div class="metric-value">$39</div>
+          <div class="metric-change up"><i class="fa-solid fa-arrow-up"></i> +$4 with tips</div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Weekly Revenue</div>
+            <div style="display:flex;gap:0.5rem">
+              <button class="pill active" onclick="setPill(this)">Week</button>
+              <button class="pill" onclick="setPill(this)">Month</button>
+              <button class="pill" onclick="setPill(this)">Year</button>
+            </div>
+          </div>
+          <div class="bar-chart" id="main-chart" style="height:200px"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Services Breakdown</div>
+          </div>
+          <div id="services-breakdown" style="display:flex;flex-direction:column;gap:0.75rem"></div>
+        </div>
+      </div>
+
+      <!-- Two column -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+        <!-- Upcoming -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Today's Appointments</div>
+            <span class="badge badge-gold">8 total</span>
+          </div>
+          <div class="upcoming-list" id="appointments-list"></div>
+        </div>
+
+        <!-- AI Tools -->
+        <div class="ai-card">
+          <div class="ai-title"><i class="fa-solid fa-robot"></i> AI Business Coach</div>
+          <div class="ai-tip" onclick="openModal('ai-modal')">
+            <div class="ai-tip-label">💡 Tip of the day</div>
+            <div>Your Tuesday mornings are consistently slow. Consider offering a 10% loyalty discount to fill those slots and maximize revenue.</div>
+          </div>
+          <div class="ai-tip" onclick="generateCaption()">
+            <div class="ai-tip-label">✍️ Caption generator</div>
+            <div id="ai-caption-text">Click to generate an AI caption for your next post...</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" style="width:100%" onclick="openModal('ai-modal')"><i class="fa-solid fa-stars"></i> Open AI Assistant</button>
+        </div>
+      </div>
+
+      <!-- Recent Reviews -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Recent Reviews</div>
+          <div class="stars">★★★★★ <span style="color:var(--gray);font-size:0.8rem">4.9 avg</span></div>
+        </div>
+        <div id="dashboard-reviews"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================
+     PAGE: EARNINGS
+====================================== -->
+<div class="page" id="page-earnings">
+  <div class="container" style="padding-top:5rem;padding-bottom:4rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem">
+      <div>
+        <div style="color:var(--gray);font-size:0.875rem">Earnings Analytics</div>
+        <h1 style="font-size:1.8rem;font-weight:800">Your Money 💰</h1>
+      </div>
+      <div style="display:flex;gap:0.75rem">
+        <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-download"></i> Export</button>
+        <button class="btn btn-gold btn-sm" onclick="showToast('success','Payout initiated!','$1,840 will arrive in 2-3 business days')">
+          <i class="fa-solid fa-money-bill-transfer"></i> Request Payout
+        </button>
+      </div>
+    </div>
+
+    <!-- Period Cards -->
+    <div class="earnings-overview">
+      <div class="earning-period-card active">
+        <div class="ep-period">Today</div>
+        <div class="ep-amount" style="color:var(--gold)">$312</div>
+        <div class="ep-change">↑ +18% vs yesterday</div>
+      </div>
+      <div class="earning-period-card">
+        <div class="ep-period">This Week</div>
+        <div class="ep-amount">$1,840</div>
+        <div class="ep-change">↑ +23% vs last week</div>
+      </div>
+      <div class="earning-period-card">
+        <div class="ep-period">This Month</div>
+        <div class="ep-amount">$7,280</div>
+        <div class="ep-change">↑ +12% vs last month</div>
+      </div>
+      <div class="earning-period-card">
+        <div class="ep-period">This Year</div>
+        <div class="ep-amount">$84,320</div>
+        <div class="ep-change">↑ +34% vs last year</div>
+      </div>
+    </div>
+
+    <!-- Main Chart -->
+    <div class="chart-card" style="margin-bottom:2rem">
+      <div class="chart-header">
+        <div class="chart-title">Revenue Over Time</div>
+        <div style="display:flex;gap:0.5rem">
+          <button class="pill active" onclick="setPill(this)">Weekly</button>
+          <button class="pill" onclick="setPill(this)">Monthly</button>
+          <button class="pill" onclick="setPill(this)">Yearly</button>
+        </div>
+      </div>
+      <div style="height:240px;display:flex;align-items:flex-end;gap:6px;padding:1rem 0" id="earnings-chart"></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+        <div style="text-align:center"><div style="font-size:1.4rem;font-weight:800">$39</div><div style="color:var(--gray);font-size:0.75rem">Avg per cut</div></div>
+        <div style="text-align:center"><div style="font-size:1.4rem;font-weight:800">47</div><div style="color:var(--gray);font-size:0.75rem">Cuts this week</div></div>
+        <div style="text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--green)">$218</div><div style="color:var(--gray);font-size:0.75rem">Tips this week</div></div>
+        <div style="text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--red)">-$47</div><div style="color:var(--gray);font-size:0.75rem">Platform fees</div></div>
+      </div>
+    </div>
+
+    <!-- Transactions -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">Transaction History</div>
+        <select class="form-input" style="width:auto;padding:0.4rem 0.75rem;font-size:0.8rem">
+          <option>All Transactions</option>
+          <option>Payments</option>
+          <option>Payouts</option>
+          <option>Refunds</option>
+        </select>
+      </div>
+      <div id="transactions-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================
+     PAGE: PORTFOLIO
+====================================== -->
+<div class="page" id="page-portfolio">
+  <div class="portfolio-full">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem">
+        <div>
+          <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:0.25rem">My Portfolio</h1>
+          <div style="color:var(--gray);font-size:0.875rem">48 photos · 3 videos</div>
+        </div>
+        <div style="display:flex;gap:0.75rem">
+          <button class="btn btn-ghost btn-sm" onclick="showToast('info','Upload','Select photos from your device')"><i class="fa-solid fa-plus"></i> Add Photos</button>
+          <button class="btn btn-gold btn-sm" onclick="openModal('ai-modal')"><i class="fa-solid fa-robot"></i> AI Caption</button>
+        </div>
+      </div>
+      <div class="filter-chips" style="justify-content:flex-start;margin-bottom:1.5rem">
+        <button class="chip active">All</button>
+        <button class="chip" onclick="setChip(this)">Fades</button>
+        <button class="chip" onclick="setChip(this)">Tapers</button>
+        <button class="chip" onclick="setChip(this)">Burst Fade</button>
+        <button class="chip" onclick="setChip(this)">Designs</button>
+        <button class="chip" onclick="setChip(this)">Beard Work</button>
+        <button class="chip" onclick="setChip(this)">Curly</button>
+        <button class="chip" onclick="setChip(this)">Featured</button>
+      </div>
+      <div id="portfolio-masonry" class="portfolio-masonry"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================
+     PAGE: AUTH
+====================================== -->
+<div class="page" id="page-auth">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">LineUp</div>
+      <div class="auth-tagline">The Shopify for Barbers</div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="authTab(this,'signin')">Sign In</button>
+        <button class="tab" onclick="authTab(this,'signup')">Create Account</button>
+      </div>
+
+      <!-- Sign In -->
+      <div id="auth-signin">
+        <button class="google-btn" onclick="showToast('success','Signed in!','Welcome back to LineUp')">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          Continue with Google
+        </button>
+        <div class="divider-text">or sign in with email</div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="marcus@luxecuts.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" placeholder="••••••••">
+        </div>
+        <button class="btn btn-gold" style="width:100%;margin-bottom:1rem" onclick="showToast('success','Welcome back!','Redirecting to your dashboard...');setTimeout(()=>goTo('dashboard'),1000)">
+          Sign In
+        </button>
+        <div style="text-align:center;font-size:0.8rem;color:var(--gray)">
+          <a href="#" style="color:var(--gold)">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Sign Up -->
+      <div id="auth-signup" style="display:none">
+        <div style="font-size:0.875rem;color:var(--gray);margin-bottom:1rem">I am a...</div>
+        <div class="account-type-selector">
+          <button class="account-type selected" onclick="selectAccountType(this)">
+            <i class="fa-solid fa-scissors"></i>
+            <div class="account-type-label">Barber</div>
+            <div style="font-size:0.7rem;color:var(--gray)">Accept bookings</div>
+          </button>
+          <button class="account-type" onclick="selectAccountType(this)">
+            <i class="fa-solid fa-user"></i>
+            <div class="account-type-label">Client</div>
+            <div style="font-size:0.7rem;color:var(--gray)">Book appointments</div>
+          </button>
+        </div>
+        <button class="google-btn" onclick="showToast('success','Account created!','Setting up your profile...');setTimeout(()=>goTo('dashboard'),1000)">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          Sign up with Google
+        </button>
+        <div class="divider-text">or create with email</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="Marcus"></div>
+          <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" placeholder="Johnson"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" placeholder="you@example.com"></div>
+        <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" placeholder="Create a strong password"></div>
+        <button class="btn btn-gold" style="width:100%"
+          onclick="showToast('success','Welcome to LineUp!','Your account has been created');setTimeout(()=>goTo('dashboard'),1000)">
+          Create Account
+        </button>
+        <p style="text-align:center;font-size:0.75rem;color:var(--gray);margin-top:1rem">By signing up you agree to our <a href="#" style="color:var(--gold)">Terms</a> and <a href="#" style="color:var(--gold)">Privacy Policy</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================
+     PAGE: SETTINGS
+====================================== -->
+<div class="page" id="page-settings">
+  <div class="container">
+    <div class="settings-layout">
+      <div class="settings-nav">
+        <div style="font-size:1.2rem;font-weight:800;margin-bottom:1.5rem">Settings</div>
+        <button class="settings-nav-item active" onclick="setSettingsActive(this)"><i class="fa-solid fa-user"></i> Profile</button>
+        <button class="settings-nav-item" onclick="setSettingsActive(this)"><i class="fa-solid fa-scissors"></i> Services</button>
+        <button class="settings-nav-item" onclick="setSettingsActive(this)"><i class="fa-solid fa-clock"></i> Schedule</button>
+        <button class="settings-nav-item" onclick="setSettingsActive(this)"><i class="fa-solid fa-credit-card"></i> Payments</button>
+        <button class="settings-nav-item" onclick="setSettingsActive(this)"><i class="fa-solid fa-bell"></i> Notifications</button>
+        <button class="settings-nav-item" onclick="setSettingsActive(this)"><i class="fa-solid fa-share-nodes"></i> Social Links</button>
+        <button class="settings-nav-item" onclick="setSettingsActive(this)"><i class="fa-solid fa-shield"></i> Security</button>
+        <button class="settings-nav-item" onclick="setSettingsActive(this)"><i class="fa-solid fa-tag"></i> Subscription</button>
+      </div>
+
+      <div class="settings-content">
+        <div class="settings-section">
+          <div class="settings-section-title">Profile Information</div>
+          <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:2rem">
+            <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:900;color:#000">M</div>
+            <div>
+              <button class="btn btn-ghost btn-sm" onclick="showToast('info','Upload photo','Select a photo from your device')"><i class="fa-solid fa-camera"></i> Change Photo</button>
+              <div style="color:var(--gray);font-size:0.75rem;margin-top:0.4rem">JPG, PNG · Max 5MB</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+            <div class="form-group"><label class="form-label">First Name</label><input class="form-input" value="Marcus"></div>
+            <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" value="Johnson"></div>
+            <div class="form-group"><label class="form-label">Display Name</label><input class="form-input" value='Marcus "The Blade"'></div>
+            <div class="form-group"><label class="form-label">Phone</label><input class="form-input" value="+1 (404) 555-0192"></div>
+            <div class="form-group" style="grid-column:span 2"><label class="form-label">Bio</label><textarea class="form-input" rows="3" style="resize:none">Master barber with 12 years experience. Specializing in skin fades, razor lineups, and creative designs. Based in Atlanta, GA.</textarea></div>
+            <div class="form-group"><label class="form-label">Shop Location</label><input class="form-input" value="The Luxe Barbershop, Atlanta, GA"></div>
+            <div class="form-group"><label class="form-label">Profile URL</label><input class="form-input" value="lineup.app/marcus-blade"></div>
+          </div>
+          <button class="btn btn-gold" onclick="showToast('success','Profile saved!','Your changes have been updated')"><i class="fa-solid fa-check"></i> Save Changes</button>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Notifications</div>
+          <div class="setting-row">
+            <div class="setting-info"><div class="setting-name">New Booking</div><div class="setting-desc">Get notified when someone books an appointment</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info"><div class="setting-name">Payment Received</div><div class="setting-desc">Notification when a payment clears</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info"><div class="setting-name">Appointment Reminders</div><div class="setting-desc">Reminders 1 hour before each appointment</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info"><div class="setting-name">New Reviews</div><div class="setting-desc">Alert when a client leaves a review</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info"><div class="setting-name">AI Business Tips</div><div class="setting-desc">Weekly tips from your AI business coach</div></div>
+            <div class="toggle" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info"><div class="setting-name">Marketing Emails</div><div class="setting-desc">Platform updates and promotions</div></div>
+            <div class="toggle" onclick="this.classList.toggle('on')"></div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Social Media Links</div>
+          <div class="form-group"><label class="form-label"><i class="fa-brands fa-instagram" style="color:#e1306c;margin-right:0.5rem"></i>Instagram</label><input class="form-input" value="@marcusblade" placeholder="@yourusername"></div>
+          <div class="form-group"><label class="form-label"><i class="fa-brands fa-tiktok" style="margin-right:0.5rem"></i>TikTok</label><input class="form-input" value="@marcusblade" placeholder="@yourusername"></div>
+          <div class="form-group"><label class="form-label"><i class="fa-brands fa-youtube" style="color:#ff0000;margin-right:0.5rem"></i>YouTube</label><input class="form-input" placeholder="Channel URL"></div>
+          <div class="form-group"><label class="form-label"><i class="fa-brands fa-snapchat" style="color:#fffc00;margin-right:0.5rem"></i>Snapchat</label><input class="form-input" placeholder="@yourusername"></div>
+          <button class="btn btn-gold" onclick="showToast('success','Social links saved!','Your profiles are now linked')"><i class="fa-solid fa-check"></i> Save Links</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================
+     PAGE: ADMIN
+====================================== -->
+<div class="page" id="page-admin">
+  <div class="container" style="padding-top:5rem;padding-bottom:4rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem">
+      <div>
+        <div class="badge badge-red" style="margin-bottom:0.5rem"><i class="fa-solid fa-shield"></i> Admin Panel</div>
+        <h1 style="font-size:1.8rem;font-weight:800">Platform Overview</h1>
+      </div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-download"></i> Export Report</button>
+        <button class="btn btn-danger btn-sm" onclick="showToast('warning','Alert mode','Monitoring suspicious activity')"><i class="fa-solid fa-shield-exclamation"></i> 2 Reports</button>
+      </div>
+    </div>
+
+    <div class="admin-metrics">
+      <div class="admin-metric">
+        <div class="am-icon">💰</div>
+        <div class="am-value" style="color:var(--gold)">$4,820</div>
+        <div class="am-label">Platform Revenue (Month)</div>
+        <div style="margin-top:0.5rem" class="badge badge-green">↑ +34%</div>
+      </div>
+      <div class="admin-metric">
+        <div class="am-icon">✂️</div>
+        <div class="am-value">12,408</div>
+        <div class="am-label">Total Barbers</div>
+        <div style="margin-top:0.5rem" class="badge badge-green">+248 this week</div>
+      </div>
+      <div class="admin-metric">
+        <div class="am-icon">👥</div>
+        <div class="am-value">98,241</div>
+        <div class="am-label">Total Clients</div>
+        <div style="margin-top:0.5rem" class="badge badge-green">+1,820 this week</div>
+      </div>
+      <div class="admin-metric">
+        <div class="am-icon">📅</div>
+        <div class="am-value">4,820</div>
+        <div class="am-label">$1 Fees Collected (Month)</div>
+        <div style="margin-top:0.5rem" class="badge badge-blue">+18% MoM</div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem">
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Platform Revenue (6 months)</div>
+        </div>
+        <div style="height:180px;display:flex;align-items:flex-end;gap:8px" id="admin-chart"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">New User Growth</div>
+        </div>
+        <div style="height:180px;display:flex;align-items:flex-end;gap:8px" id="admin-growth-chart"></div>
+      </div>
+    </div>
+
+    <!-- Recent Barbers Table -->
+    <div class="chart-card" style="margin-bottom:1.5rem">
+      <div class="chart-header">
+        <div class="chart-title">Recent Barbers</div>
+        <button class="btn btn-ghost btn-sm">View All</button>
+      </div>
+      <table class="admin-table">
+        <thead><tr><th>Barber</th><th>Location</th><th>Bookings</th><th>Revenue</th><th>Plan</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Marcus Johnson</strong></td><td>Atlanta, GA</td><td>1,240</td><td>$48,360</td><td><span class="badge badge-gold">Pro</span></td><td><span class="badge badge-green">Active</span></td></tr>
+          <tr><td><strong>Darius Williams</strong></td><td>Houston, TX</td><td>892</td><td>$31,220</td><td><span class="badge badge-gold">Pro</span></td><td><span class="badge badge-green">Active</span></td></tr>
+          <tr><td><strong>Jordan Smith</strong></td><td>Miami, FL</td><td>634</td><td>$24,720</td><td><span class="badge badge-gray">Free</span></td><td><span class="badge badge-green">Active</span></td></tr>
+          <tr><td><strong>Kevin Davis</strong></td><td>Chicago, IL</td><td>412</td><td>$14,840</td><td><span class="badge badge-gold">Pro</span></td><td><span class="badge badge-green">Active</span></td></tr>
+          <tr><td><strong>Tyler Brown</strong></td><td>NYC, NY</td><td>128</td><td>$4,480</td><td><span class="badge badge-gray">Free</span></td><td><span class="badge badge-blue">New</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Reports -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">Reports & Flags <span class="badge badge-red">2 open</span></div>
+      </div>
+      <table class="admin-table">
+        <thead><tr><th>User</th><th>Type</th><th>Description</th><th>Date</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>@unknown_user</td><td><span class="badge badge-red">Spam</span></td><td>Suspicious bulk bookings</td><td>Dec 17</td><td><button class="btn btn-ghost btn-sm" onclick="showToast('success','Resolved','Report marked as resolved')">Resolve</button></td></tr>
+          <tr><td>@fade_king_99</td><td><span class="badge badge-gold">Review</span></td><td>Reported fake review claim</td><td>Dec 15</td><td><button class="btn btn-ghost btn-sm" onclick="showToast('success','Reviewed','Under investigation')">Review</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- AI Float Button -->
+<button class="ai-float-btn" onclick="openModal('ai-modal')" title="AI Assistant">
+  <i class="fa-solid fa-robot"></i>
+</button>
+
+<script>
+// ======================================
+// CORE NAVIGATION
+// ======================================
+let currentPage = 'landing';
+
+function goTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if (el) {
+    el.classList.add('active');
+    currentPage = page;
+    window.scrollTo(0, 0);
+    updateNav(page);
+    if (page === 'discover') renderBarbers();
+    if (page === 'dashboard') renderDashboard();
+    if (page === 'earnings') renderEarnings();
+    if (page === 'portfolio') renderPortfolio();
+    if (page === 'profile') renderProfile();
+    if (page === 'booking') renderBooking();
+    if (page === 'admin') renderAdmin();
+    if (page === 'landing') renderLandingChart();
+  }
+}
+
+function updateNav(page) {
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const authRight = document.getElementById('auth-nav-right');
+  const isDashboardPage = ['dashboard','earnings','portfolio','settings'].includes(page);
+  if (isDashboardPage) {
+    authRight.innerHTML = `
+      <button class="nav-link" onclick="goTo('discover')">Explore</button>
+      <div style="position:relative;cursor:pointer" onclick="showToast('info','Notifications','3 new notifications')">
+        <i class="fa-solid fa-bell" style="font-size:1.1rem;color:var(--gray)"></i>
+        <div class="notif-dot"></div>
+      </div>
+      <div class="nav-avatar" onclick="goTo('settings')">M</div>`;
+  } else {
+    authRight.innerHTML = `
+      <button class="nav-link" onclick="goTo('auth')">Login</button>
+      <button class="nav-btn" onclick="goTo('auth')">Get Started Free</button>`;
+  }
+}
+
+// ======================================
+// MOCK DATA
+// ======================================
+const barbers = [
+  { id:1, name:'Marcus "The Blade"', title:'Master Barber · 12 yrs', location:'Atlanta, GA', rating:4.9, reviews:89, bookings:1240, price:40, tags:['Fades','Designs','Beard'], emoji:'💈', gradient:'linear-gradient(135deg,#1a1208,#2a1f08)', initials:'M', color:'var(--gold)' },
+  { id:2, name:'Darius "Smooth"', title:'Senior Barber · 8 yrs', location:'Houston, TX', rating:4.8, reviews:62, bookings:892, price:35, tags:['Tapers','Curly','Burst'], emoji:'✂️', gradient:'linear-gradient(135deg,#0a1020,#102030)', initials:'D', color:'#9b59b6' },
+  { id:3, name:'Jordan The Cut King', title:'Creative Barber · 6 yrs', location:'Miami, FL', rating:4.7, reviews:44, bookings:634, price:45, tags:['Designs','Fades','Kids'], emoji:'💇', gradient:'linear-gradient(135deg,#0a1408,#102010)', initials:'J', color:'#2980b9' },
+  { id:4, name:'Kevin "Fresh"', title:'Precision Barber · 9 yrs', location:'Chicago, IL', rating:4.9, reviews:71, bookings:1040, price:38, tags:['Tapers','Beard','Lineup'], emoji:'🪒', gradient:'linear-gradient(135deg,#10080a,#20101a)', initials:'K', color:'#e74c3c' },
+  { id:5, name:'Tyler Waves', title:'Wave & Fade Specialist · 5 yrs', location:'New York, NY', rating:4.6, reviews:38, bookings:412, price:42, tags:['Waves','Burst','Designs'], emoji:'🌊', gradient:'linear-gradient(135deg,#080a18,#101428)', initials:'T', color:'#16a085' },
+  { id:6, name:'Andre "The Artist"', title:'Creative Director · 10 yrs', location:'Los Angeles, CA', rating:4.8, reviews:55, bookings:780, price:50, tags:['Designs','Art','Fades'], emoji:'🎨', gradient:'linear-gradient(135deg,#180808,#280010)', initials:'A', color:'#e67e22' },
+];
+
+const services = [
+  { name:'Skin Fade + Lineup', duration:'45 min', price:40 },
+  { name:'Taper Fade', duration:'40 min', price:35 },
+  { name:'Beard Trim & Shape', duration:'30 min', price:25 },
+  { name:'Full Service (Cut + Beard)', duration:'75 min', price:60 },
+  { name:'Kids Cut', duration:'30 min', price:20 },
+  { name:'Creative Design', duration:'60 min', price:55 },
+];
+
+const portfolioItems = [
+  { tag:'Skin Fade', emoji:'✂️', height:220, color:'linear-gradient(135deg,#1a1208,#2a1f08)' },
+  { tag:'Burst Fade', emoji:'💈', height:180, color:'linear-gradient(135deg,#0a1020,#102030)' },
+  { tag:'Taper', emoji:'🪒', height:260, color:'linear-gradient(135deg,#0a1408,#102010)' },
+  { tag:'Design', emoji:'🎨', height:200, color:'linear-gradient(135deg,#10080a,#20101a)' },
+  { tag:'Beard Work', emoji:'🧔', height:240, color:'linear-gradient(135deg,#18100a,#281808)' },
+  { tag:'Curly Hair', emoji:'🌀', height:180, color:'linear-gradient(135deg,#080a18,#101428)' },
+  { tag:'Fade', emoji:'💇', height:220, color:'linear-gradient(135deg,#180808,#280010)' },
+  { tag:'Lineup', emoji:'📐', height:260, color:'linear-gradient(135deg,#081018,#081820)' },
+  { tag:'Skin Fade', emoji:'✨', height:200, color:'linear-gradient(135deg,#101208,#181c0a)' },
+  { tag:'Design', emoji:'⭐', height:180, color:'linear-gradient(135deg,#0a0a18,#10102a)' },
+  { tag:'Taper', emoji:'💫', height:240, color:'linear-gradient(135deg,#180a08,#281408)' },
+  { tag:'Burst Fade', emoji:'🔥', height:200, color:'linear-gradient(135deg,#101008,#1a1a08)' },
+];
+
+const reviews = [
+  { name:'Carlos R.', initials:'C', color:'#e74c3c', stars:5, text:'Cleanest fade I\'ve ever had. Marcus is an artist with the clippers. Booked again already!', date:'Dec 15' },
+  { name:'Jalen M.', initials:'J', color:'#2980b9', stars:5, text:'Punctual, professional, and precise. The booking process through LineUp was smooth too.', date:'Dec 12' },
+  { name:'Terrell B.', initials:'T', color:'#16a085', stars:5, text:'Best barber in Atlanta, no debate. Every cut is a masterpiece. Worth every penny.', date:'Dec 10' },
+  { name:'Devon K.', initials:'D', color:'#8e44ad', stars:4, text:'Great fade, great vibes. The shop is clean and Marcus is on point. Will definitely return.', date:'Dec 8' },
+];
+
+const transactions = [
+  { type:'income', name:'Carlos Rivera - Skin Fade', date:'Dec 17, 2:00 PM', amount:'+$40', class:'positive' },
+  { type:'income', name:'Jalen Morris - Full Service', date:'Dec 17, 12:30 PM', amount:'+$60', class:'positive' },
+  { type:'income', name:'Terrell Brown - Beard Trim', date:'Dec 17, 11:00 AM', amount:'+$25', class:'positive' },
+  { type:'fee', name:'Platform fee (3 bookings)', date:'Dec 17', amount:'-$3', class:'negative' },
+  { type:'payout', name:'Weekly payout to Chase ****4521', date:'Dec 15', amount:'+$1,840', class:'positive' },
+  { type:'income', name:'Devon King - Kids Cut', date:'Dec 14, 4:00 PM', amount:'+$20', class:'positive' },
+  { type:'income', name:'Marcus Lee - Creative Design', date:'Dec 14, 2:30 PM', amount:'+$55', class:'positive' },
+  { type:'fee', name:'Platform fee (2 bookings)', date:'Dec 14', amount:'-$2', class:'negative' },
+];
+
+// ======================================
+// RENDER FUNCTIONS
+// ======================================
+
+function renderBarbers(filter='') {
+  const grid = document.getElementById('barbers-grid');
+  if (!grid) return;
+  const filtered = filter ? barbers.filter(b =>
+    b.name.toLowerCase().includes(filter.toLowerCase()) ||
+    b.location.toLowerCase().includes(filter.toLowerCase()) ||
+    b.tags.some(t => t.toLowerCase().includes(filter.toLowerCase()))
+  ) : barbers;
+  document.getElementById('barber-count').textContent = filtered.length;
+  grid.innerHTML = filtered.map(b => `
+    <div class="barber-card" onclick="goTo('profile')">
+      <div class="barber-cover">
+        <div class="barber-cover-bg" style="background:${b.gradient}">${b.emoji}</div>
+        <div class="barber-cover-overlay"></div>
+      </div>
+      <div class="barber-card-body">
+        <div class="barber-card-avatar" style="background:${b.color};color:#fff">${b.initials}</div>
+        <div class="barber-card-name">${b.name}</div>
+        <div class="barber-card-title">${b.title}</div>
+        <div class="barber-card-meta">
+          <span><i class="fa-solid fa-star" style="color:var(--gold)"></i> ${b.rating} (${b.reviews})</span>
+          <span><i class="fa-solid fa-location-dot"></i> ${b.location}</span>
+        </div>
+        <div class="barber-tags">${b.tags.map(t=>`<span class="barber-tag">${t}</span>`).join('')}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:1rem;font-weight:800;color:var(--gold)">From $${b.price}</div>
+          <button class="btn btn-gold btn-sm" onclick="event.stopPropagation();goTo('booking')">Book Now</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderProfile() {
+  // Portfolio
+  const pg = document.getElementById('profile-portfolio');
+  if (pg) pg.innerHTML = portfolioItems.slice(0,9).map(p => `
+    <div class="portfolio-item" onclick="showToast('info','${p.tag}','Viewing ${p.tag} by Marcus')">
+      <div class="portfolio-item-inner" style="background:${p.color};height:120px">${p.emoji}</div>
+      <div class="portfolio-overlay"><span class="portfolio-tag">${p.tag}</span></div>
+    </div>
+  `).join('');
+
+  // Services
+  const sg = document.getElementById('profile-services');
+  if (sg) sg.innerHTML = services.map(s => `
+    <div class="service-item">
+      <div><div class="service-name">${s.name}</div><div class="service-duration"><i class="fa-solid fa-clock" style="margin-right:4px"></i>${s.duration}</div></div>
+      <div style="display:flex;align-items:center;gap:0.75rem">
+        <div class="service-price">$${s.price}</div>
+        <button class="btn btn-gold btn-sm" onclick="goTo('booking')">Book</button>
+      </div>
+    </div>
+  `).join('');
+
+  // Reviews
+  const rv = document.getElementById('profile-reviews');
+  if (rv) rv.innerHTML = reviews.map(r => `
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:${r.color};color:#fff">${r.initials}</div>
+          <div><div style="font-weight:600;font-size:0.875rem">${r.name}</div><div class="stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div></div>
+        </div>
+        <div style="color:var(--gray);font-size:0.75rem">${r.date}</div>
+      </div>
+      <div class="review-text">${r.text}</div>
+    </div>
+  `).join('');
+
+  // Quick services
+  const qs = document.getElementById('quick-services');
+  if (qs) qs.innerHTML = services.slice(0,4).map((s,i) => `
+    <div class="service-item" style="cursor:pointer" onclick="this.style.borderColor='var(--gold)'">
+      <div><div class="service-name" style="font-size:0.8rem">${s.name}</div></div>
+      <div class="service-price" style="font-size:0.875rem">$${s.price}</div>
+    </div>
+  `).join('');
+}
+
+function renderDashboard() {
+  // Main Chart
+  const mc = document.getElementById('main-chart');
+  if (mc) {
+    const data = [
+      {l:'Mon',v:220},{l:'Tue',v:180},{l:'Wed',v:260},{l:'Thu',v:312},{l:'Fri',v:290},{l:'Sat',v:380},{l:'Sun',v:198}
+    ];
+    renderBarChart(mc, data, 380);
+  }
+
+  // Services Breakdown
+  const sb = document.getElementById('services-breakdown');
+  if (sb) {
+    const breakdown = [
+      { name:'Skin Fade', pct:45, count:21 },
+      { name:'Taper', pct:28, count:13 },
+      { name:'Beard Work', pct:15, count:7 },
+      { name:'Full Service', pct:12, count:6 },
+    ];
+    sb.innerHTML = breakdown.map(b => `
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.3rem">
+          <span>${b.name}</span>
+          <span style="color:var(--gold)">${b.pct}%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${b.pct}%"></div></div>
+      </div>
+    `).join('');
+  }
+
+  // Appointments
+  const al = document.getElementById('appointments-list');
+  if (al) {
+    const appts = [
+      { time:'9:00', ampm:'AM', client:'Carlos Rivera', service:'Skin Fade + Lineup', price:'$40', status:'confirmed' },
+      { time:'10:00', ampm:'AM', client:'Jalen Morris', service:'Full Service', price:'$60', status:'pending' },
+      { time:'11:30', ampm:'AM', client:'Terrell Brown', service:'Beard Trim', price:'$25', status:'confirmed' },
+      { time:'2:00', ampm:'PM', client:'Devon King', service:'Creative Design', price:'$55', status:'confirmed' },
+    ];
+    al.innerHTML = appts.map(a => `
+      <div class="appointment-item">
+        <div class="appt-time">
+          <div class="appt-time-main">${a.time}</div>
+          <div class="appt-time-ampm">${a.ampm}</div>
+        </div>
+        <div class="appt-details">
+          <div class="appt-client">${a.client}</div>
+          <div class="appt-service">${a.service}</div>
+        </div>
+        <div class="appt-price">${a.price}</div>
+        <div class="appt-actions">
+          ${a.status === 'pending' ? `
+            <button class="appt-btn accept" onclick="showToast('success','Booking accepted!','${a.client} has been confirmed')" title="Accept"><i class="fa-solid fa-check"></i></button>
+            <button class="appt-btn reject" onclick="showToast('error','Booking declined','${a.client} has been notified')" title="Decline"><i class="fa-solid fa-xmark"></i></button>
+          ` : `
+            <span class="badge badge-green">✓</span>
+          `}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Reviews
+  const dr = document.getElementById('dashboard-reviews');
+  if (dr) {
+    dr.innerHTML = reviews.slice(0,3).map(r => `
+      <div style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--border)">
+        <div style="width:36px;height:36px;border-radius:50%;background:${r.color};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;flex-shrink:0">${r.initials}</div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.2rem">
+            <span style="font-weight:600;font-size:0.875rem">${r.name}</span>
+            <span style="color:var(--gold);font-size:0.8rem">${'★'.repeat(r.stars)}</span>
+          </div>
+          <div style="color:#ccc;font-size:0.8rem;line-height:1.5">${r.text}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function renderEarnings() {
+  const ec = document.getElementById('earnings-chart');
+  if (ec) {
+    const data = [
+      {l:'Mon',v:220},{l:'Tue',v:180},{l:'Wed',v:260},{l:'Thu',v:312},{l:'Fri',v:290},{l:'Sat',v:380},{l:'Sun',v:198}
+    ];
+    renderBarChart(ec, data, 380);
+  }
+
+  const tl = document.getElementById('transactions-list');
+  if (tl) {
+    tl.innerHTML = transactions.map(t => `
+      <div class="transaction-row">
+        <div class="txn-icon ${t.type}">
+          <i class="fa-solid fa-${t.type==='income'?'arrow-down':t.type==='payout'?'arrow-up':'circle-minus'}"></i>
+        </div>
+        <div class="txn-details">
+          <div class="txn-name">${t.name}</div>
+          <div class="txn-date">${t.date}</div>
+        </div>
+        <div class="txn-amount ${t.class}">${t.amount}</div>
+      </div>
+    `).join('');
+  }
+}
+
+function renderPortfolio() {
+  const pm = document.getElementById('portfolio-masonry');
+  if (!pm) return;
+  pm.innerHTML = portfolioItems.map((p,i) => `
+    <div class="masonry-item" onclick="showToast('info','${p.tag}','By Marcus — tap to view full')">
+      <div class="masonry-img" style="background:${p.color};height:${p.height}px">
+        <span style="font-size:3rem">${p.emoji}</span>
+      </div>
+      <div class="masonry-info">
+        <div style="font-weight:700;font-size:0.875rem">${p.tag}</div>
+        <div style="color:var(--gray);font-size:0.75rem">by Marcus "The Blade"</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ======================================
+// BOOKING PAGE
+// ======================================
+let selectedService = 0;
+let selectedDate = null;
+let selectedTime = null;
+
+function renderBooking() {
+  const sl = document.getElementById('booking-services-list');
+  if (!sl) return;
+  sl.innerHTML = services.map((s,i) => `
+    <div class="service-item" style="cursor:pointer;${i===0?'border-color:var(--gold);background:rgba(212,168,67,0.05)':''}" onclick="selectService(this,${i})">
+      <div>
+        <div class="service-name">${s.name}</div>
+        <div class="service-duration"><i class="fa-solid fa-clock" style="margin-right:4px"></i>${s.duration}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.5rem">
+        <div class="service-price">$${s.price}</div>
+        ${i===0?'<i class="fa-solid fa-check-circle" style="color:var(--gold)"></i>':''}
+      </div>
+    </div>
+  `).join('');
+  renderCalendar();
+  renderTimeSlots();
+  document.getElementById('step1').classList.add('active');
+}
+
+function selectService(el, idx) {
+  selectedService = idx;
+  document.querySelectorAll('#booking-services-list .service-item').forEach((e,i) => {
+    e.style.borderColor = i===idx ? 'var(--gold)' : '';
+    e.style.background = i===idx ? 'rgba(212,168,67,0.05)' : '';
+  });
+  const s = services[idx];
+  document.getElementById('sum-service').textContent = s.name;
+  document.getElementById('sum-price').textContent = `$${s.price}`;
+  document.getElementById('sum-total').textContent = `$${s.price + 6}`;
+}
+
+let calYear = 2024, calMonth = 11;
+function renderCalendar() {
+  const el = document.getElementById('cal-days');
+  if (!el) return;
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('cal-month-label').textContent = `${months[calMonth]} ${calYear}`;
+  const first = new Date(calYear, calMonth, 1).getDay();
+  const days = new Date(calYear, calMonth+1, 0).getDate();
+  let html = '';
+  for(let i=0;i<first;i++) html += '<div class="cal-day empty"></div>';
+  for(let d=1;d<=days;d++) {
+    const isDisabled = d < 18;
+    const isToday = d === 17;
+    html += `<div class="cal-day ${isDisabled?'disabled':''} ${isToday?'today':''}" onclick="selectDay(this,${d})">${d}</div>`;
+  }
+  el.innerHTML = html;
+}
+
+function changeMonth(dir) {
+  calMonth += dir;
+  if(calMonth > 11) { calMonth=0; calYear++; }
+  if(calMonth < 0) { calMonth=11; calYear--; }
+  renderCalendar();
+}
+
+function selectDay(el, d) {
+  if(el.classList.contains('disabled')) return;
+  document.querySelectorAll('.cal-day.selected').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  selectedDate = `${months[calMonth]} ${d}`;
+  document.getElementById('selected-date-label').textContent = selectedDate;
+  document.getElementById('sum-date').innerHTML = `<i class="fa-solid fa-calendar"></i> ${selectedDate}`;
+  renderTimeSlots();
+}
+
+function renderTimeSlots() {
+  const el = document.getElementById('time-slots');
+  if (!el) return;
+  const times = ['9:00 AM','9:45 AM','10:30 AM','11:15 AM','12:00 PM','1:00 PM','1:45 PM','2:00 PM','2:45 PM','3:30 PM','4:15 PM','5:00 PM'];
+  const taken = [2, 5, 8];
+  el.innerHTML = times.map((t,i) => `
+    <button class="time-slot ${taken.includes(i)?'taken':''}" onclick="selectTime(this,'${t}')">${t}</button>
+  `).join('');
+}
+
+function selectTime(el, t) {
+  if(el.classList.contains('taken')) return;
+  document.querySelectorAll('.time-slot.selected').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedTime = t;
+}
+
+function nextStep(step) {
+  for(let i=1;i<=4;i++) {
+    document.getElementById(`booking-step-${i}`).style.display = i===step?'block':'none';
+  }
+  for(let i=1;i<=4;i++) {
+    const el = document.getElementById(`step${i}`);
+    if(el) {
+      el.classList.remove('active','done');
+      if(i < step) el.classList.add('done');
+      if(i === step) el.classList.add('active');
+    }
+  }
+  if(step === 4) {
+    showToast('success','Payment confirmed!','$45 charged to ****4242');
+    setTimeout(() => showToast('info','Reminder set','You\'ll be notified 1hr before your appointment'), 1500);
+  }
+}
+
+function selectPayment(el) {
+  document.querySelectorAll('.payment-method').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function setTip(el, amount) {
+  document.querySelectorAll('.form-group .chip').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  const base = services[selectedService]?.price || 40;
+  const tip = amount === 'custom' ? 0 : amount;
+  document.getElementById('sum-tip').textContent = `$${tip}`;
+  document.getElementById('sum-total').textContent = `$${base + tip + 1}`;
+}
+
+// ======================================
+// ADMIN CHARTS
+// ======================================
+function renderAdmin() {
+  const ac = document.getElementById('admin-chart');
+  if (ac) {
+    const data = [{l:'Jul',v:2400},{l:'Aug',v:3100},{l:'Sep',v:3800},{l:'Oct',v:3400},{l:'Nov',v:4200},{l:'Dec',v:4820}];
+    renderBarChart(ac, data, 4820);
+  }
+  const ag = document.getElementById('admin-growth-chart');
+  if (ag) {
+    const data = [{l:'Jul',v:1200},{l:'Aug',v:1800},{l:'Sep',v:2400},{l:'Oct',v:3200},{l:'Nov',v:4100},{l:'Dec',v:4820}];
+    renderBarChart(ag, data, 4820, '#4488ff');
+  }
+}
+
+function renderLandingChart() {
+  const dc = document.getElementById('demo-chart');
+  if (dc) {
+    const data = [{l:'Mon',v:180},{l:'Tue',v:140},{l:'Wed',v:220},{l:'Thu',v:280},{l:'Fri',v:260},{l:'Sat',v:380},{l:'Sun',v:198}];
+    renderBarChart(dc, data, 380);
+  }
+}
+
+function renderBarChart(container, data, maxVal, color = null) {
+  container.innerHTML = data.map(d => {
+    const pct = (d.v / maxVal * 100).toFixed(0);
+    const bg = color ? `background:linear-gradient(180deg,${color},rgba(68,136,255,0.3))` : 'background:linear-gradient(180deg,var(--gold),rgba(212,168,67,0.3))';
+    return `
+      <div class="bar-item">
+        <div class="bar-val">$${d.v}</div>
+        <div class="bar-fill" style="height:${pct}%;${bg}" title="${d.l}: $${d.v}"></div>
+        <div class="bar-label">${d.l}</div>
+      </div>`;
+  }).join('');
+}
+
+// ======================================
+// UI HELPERS
+// ======================================
+function filterBarbers(val) {
+  renderBarbers(val);
+}
+
+function setChip(el, filter) {
+  el.closest('.filter-chips, div').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function profileTab(el, tab) {
+  document.querySelectorAll('#page-profile .tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['portfolio','services','reviews','about'].forEach(t => {
+    const el = document.getElementById(`tab-${t}`);
+    if (el) el.style.display = t===tab ? 'block' : 'none';
+  });
+}
+
+function authTab(el, tab) {
+  document.querySelectorAll('#page-auth .tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('auth-signin').style.display = tab==='signin' ? 'block' : 'none';
+  document.getElementById('auth-signup').style.display = tab==='signup' ? 'block' : 'none';
+}
+
+function selectAccountType(el) {
+  el.closest('.account-type-selector').querySelectorAll('.account-type').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function setSidebarActive(el) {
+  document.querySelectorAll('.sidebar-item').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function setSettingsActive(el) {
+  document.querySelectorAll('.settings-nav-item').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function setPill(el) {
+  el.closest('.pill-nav, div').querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ======================================
+// TOAST
+// ======================================
+function showToast(type, title, sub='') {
+  const icons = { success:'fa-circle-check', info:'fa-circle-info', warning:'fa-triangle-exclamation', error:'fa-circle-xmark' };
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `
+    <i class="fa-solid ${icons[type]} toast-icon"></i>
+    <div class="toast-msg">
+      <div class="toast-title">${title}</div>
+      ${sub ? `<div class="toast-sub">${sub}</div>` : ''}
+    </div>
+  `;
+  container.appendChild(toast);
+  setTimeout(() => toast.style.opacity='0', 3000);
+  setTimeout(() => toast.remove(), 3300);
+}
+
+// ======================================
+// AI FUNCTIONS
+// ======================================
+const aiResponses = {
+  caption: [
+    "🔥 When the fade hits different... New week, new cuts. Who's next in the chair? Book through my LineUp link in bio 💈 #FadeGang #BarberLife #Atlanta",
+    "✂️ Precision isn't a skill — it's a standard. Every head that sits in my chair gets treated like a masterpiece. Book the experience, not just the cut. 💡 Link in bio",
+    "💈 Clean fades. Sharp lines. No exceptions. That's the Marcus promise. Slide in my DMs or hit the booking link to get on the calendar 🗓️ #LineUp #BarbershopLife",
+  ],
+  tips: [
+    "📊 **Retention Tip:** Your data shows 40% of clients don't rebook within 4 weeks. Set up an automated 'We miss you' message to bring them back. This alone could add $400/month.",
+    "💰 **Upsell Strategy:** Barbers who offer beard trims as an add-on increase their average ticket by 22%. Try suggesting it at checkout for every cut client.",
+    "📱 **Social Media:** Post between 7-9pm on Tuesday & Thursday — that's when your target demographic is most active online based on platform analytics.",
+  ],
+  promo: [
+    "📢 **Instagram Story Copy:** 'New week = new slots available 🔥 My calendar is OPEN — book your seat before it's gone. Link in bio. First-time clients get priority booking this week only. Tap to book 💈'",
+    "📣 **New Client Promo:** 'New to Atlanta? New client? First fade is $5 off when you book through LineUp this month. Use code: FRESH5 at checkout. Limited spots — grab yours now 🏆'",
+  ],
+  retention: [
+    "🔄 **Client Retention Plan:** (1) Send a 'How was your cut?' text 24hrs after each visit. (2) Offer a loyalty punch card — 10th cut free. (3) Birthday discounts. These 3 strategies can increase repeat bookings by 35%.",
+    "💌 **Win-Back Campaign:** For clients who haven't booked in 6+ weeks, send: 'Hey [Name], your lineup is probably looking rough by now 😂 I saved you a slot this week — grab it before it's gone.' Casual = more opens.",
+  ],
+  reminder: [
+    "🔔 **Reminder Text Template:** 'Hey [Name]! Quick reminder — you're scheduled with Marcus tomorrow at [TIME]. 💈 The Luxe Barbershop, 123 Peachtree St ATL. Reply CONFIRM or call to reschedule. See you then!'",
+    "📲 **72-Hour Reminder:** 'Your cut is in 3 days, [Name]! 🗓️ [DATE] at [TIME]. Get hyped — we about to have you looking fresh. Any questions? Text me back.'",
+  ]
+};
+
+function aiPrompt(type) {
+  const responses = aiResponses[type] || ["I'm generating a response for you..."];
+  const response = responses[Math.floor(Math.random() * responses.length)];
+  document.getElementById('ai-output').innerHTML = response;
+}
+
+function aiSend() {
+  const input = document.getElementById('ai-input');
+  if (!input.value.trim()) return;
+  const userMsg = input.value;
+  input.value = '';
+  document.getElementById('ai-output').innerHTML = '⏳ Thinking...';
+  setTimeout(() => {
+    const responses = [
+      `Great question about "${userMsg}"! Based on your booking patterns, I recommend focusing on upsells during peak Saturday slots. Your average ticket is $39 — adding a beard trim upsell could push it to $52 easily.`,
+      `For "${userMsg}" — here's my advice: consistency is key. Post to Instagram 4x/week minimum. Reels perform 3x better than static posts. Show the process, not just the result.`,
+      `Regarding "${userMsg}": Your client retention rate is at 67%. Industry average is 75%. To close that gap, start sending a follow-up text 3 days after each visit with a soft rebook call-to-action.`,
+    ];
+    document.getElementById('ai-output').innerHTML = responses[Math.floor(Math.random()*responses.length)];
+  }, 800);
+}
+
+function generateCaption() {
+  const captions = aiResponses.caption;
+  document.getElementById('ai-caption-text').textContent = captions[Math.floor(Math.random()*captions.length)];
+  showToast('success', 'Caption generated!', 'Click to copy to clipboard');
+}
+
+// ======================================
+// INIT
+// ======================================
+document.addEventListener('DOMContentLoaded', () => {
+  renderLandingChart();
+
+  // Enter key for AI
+  document.getElementById('ai-input').addEventListener('keypress', e => {
+    if (e.key === 'Enter') aiSend();
+  });
+});
+
+// Initial chart render on load
+setTimeout(renderLandingChart, 100);
+</script>
+</body>
+</html>
